@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transito HP - Conoce tus Derechos de Tránsito en Colombia</title>
+    <meta name="description" content="Bot de Telegram que te ayuda a conocer tus derechos como conductor en Colombia. Código de Tránsito, fotomultas, comparendos y más.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #ffffff;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+        }
+        
+        .logo {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(90deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tagline {
+            font-size: 1.25rem;
+            color: #a0aec0;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(90deg, #0088cc, #00aaff);
+            color: white;
+            text-decoration: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 20px rgba(0, 136, 204, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0, 136, 204, 0.6);
+        }
+        
+        .cta-button svg {
+            width: 28px;
+            height: 28px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin: 60px 0;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 28px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        
+        .feature:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+        
+        .feature h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #00d4ff;
+        }
+        
+        .feature p {
+            color: #a0aec0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .how-it-works {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+        
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 32px;
+            color: #00ff88;
+        }
+        
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            color: #1a1a2e;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+        
+        .step-content p {
+            color: #a0aec0;
+            font-size: 0.95rem;
+        }
+        
+        .examples {
+            text-align: center;
+            margin: 50px 0;
+        }
+        
+        .examples h2 {
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+            color: #a0aec0;
+        }
+        
+        .example-questions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .example-q {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: #00d4ff;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+        }
+        
+        .footer p {
+            color: #666;
+            font-size: 0.85rem;
+        }
+        
+        .footer a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            color: #00ff88;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .cta-button {
+                padding: 16px 32px;
+                font-size: 1rem;
+            }
+            
+            .hero {
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="logo">🚗</div>
+            <span class="badge">✨ 100% Gratis</span>
+            <h1>Transito HP</h1>
+            <p class="tagline">
+                Tu asistente de IA para conocer tus <strong>derechos como conductor</strong> en Colombia.<br>
+                Código de Tránsito, fotomultas, comparendos y cómo defenderte.
+            </p>
+            <a href="https://t.me/TransitoHPBot" class="cta-button" target="_blank">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.248-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.752-.244-1.349-.374-1.297-.789.027-.216.324-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.015 3.333-1.386 4.025-1.627 4.477-1.635.099-.002.321.023.465.141.121.1.154.234.17.332.015.099.034.323.019.498z"/>
+                </svg>
+                Abrir en Telegram
+            </a>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📚</div>
+                <h3>Código de Tránsito Completo</h3>
+                <p>Ley 769 de 2002 y Decreto 2106 de 2019 indexados para respuestas precisas con artículos citados.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📸</div>
+                <h3>Defensa de Fotomultas</h3>
+                <p>Aprende los 5 pasos para impugnar una fotomulta. El 40% tienen errores que puedes usar a tu favor.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚖️</div>
+                <h3>Conoce tus Derechos</h3>
+                <p>Las autoridades NO pueden exigir documentos físicos si pueden consultarlos en el RUNT.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💰</div>
+                <h3>Descuentos en Multas</h3>
+                <p>Paga 50% menos si pagas en 5 días, o 75% si pagas en 20 días con curso.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⏰</div>
+                <h3>Prescripción de Multas</h3>
+                <p>Las multas prescriben en 3 años. Aprende cómo verificar si tus multas ya caducaron.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🤖</div>
+                <h3>Respuestas Instantáneas</h3>
+                <p>Inteligencia artificial entrenada con normativa colombiana. Respuestas en segundos, 24/7.</p>
+            </div>
+        </div>
+        
+        <div class="how-it-works">
+            <h2>¿Cómo Funciona?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Abre el bot en Telegram</h4>
+                        <p>Haz clic en el botón de arriba o busca @TransitoHPBot</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Escribe tu pregunta</h4>
+                        <p>Pregunta lo que necesites sobre tránsito en Colombia</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Recibe respuesta con artículos</h4>
+                        <p>El bot te responde citando los artículos relevantes de la ley</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="examples">
+            <h2>Ejemplos de preguntas que puedes hacer:</h2>
+            <div class="example-questions">
+                <span class="example-q">¿Cómo tumbar una fotomulta?</span>
+                <span class="example-q">¿Las multas prescriben?</span>
+                <span class="example-q">¿Qué documentos debo mostrar en un retén?</span>
+                <span class="example-q">¿Cuál es la multa por no usar cinturón?</span>
+                <span class="example-q">¿Diferencia entre multa y comparendo?</span>
+                <span class="example-q">¿Cómo obtener descuento en una multa?</span>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin: 50px 0;">
+            <a href="https://t.me/TransitoHPBot" class="cta-button" target="_blank">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.248-.024c-.106.024-1.793 1.139-5.062 3.345-.479.329-.913.489-1.302.481-.428-.009-1.252-.242-1.865-.442-.752-.244-1.349-.374-1.297-.789.027-.216.324-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.015 3.333-1.386 4.025-1.627 4.477-1.635.099-.002.321.023.465.141.121.1.154.234.17.332.015.099.034.323.019.498z"/>
+                </svg>
+                Comenzar Ahora - Es Gratis
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>
+                Hecho con ❤️ para conductores colombianos<br>
+                <a href="https://github.com/hashednetwork/transito-hp" target="_blank">Ver código en GitHub</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
