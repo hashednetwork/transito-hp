@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.env.local
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Data (large files)
+*.db
+chroma_db/
+vector_store/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Raw HTML (we keep the processed .txt)
+codigo_transito_raw.html
