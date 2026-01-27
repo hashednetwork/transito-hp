@@ -3,7 +3,9 @@ Telegram Bot for Colombian Transit Code Q&A
 """
 import os
 import logging
+import tempfile
 from typing import Optional
+from pathlib import Path
 
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
@@ -74,6 +76,65 @@ Por favor responde basándote únicamente en el contexto proporcionado."""
             logger.error(f"Error generating response: {e}")
             return "Lo siento, hubo un error procesando tu pregunta. Por favor intenta de nuevo."
     
+    def _transcribe_audio(self, audio_path: str) -> str:
+        """Transcribe audio file using OpenAI Whisper API."""
+        try:
+            with open(audio_path, "rb") as audio_file:
+                transcript = self.openai_client.audio.transcriptions.create(
+                    model="whisper-1",
+                    file=audio_file,
+                    language="es"  # Spanish
+                )
+            return transcript.text
+        except Exception as e:
+            logger.error(f"Error transcribing audio: {e}")
+            raise
+    
+    async def handle_voice(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Handle incoming voice messages."""
+        user_id = update.effective_user.id
+        logger.info(f"Voice message from user {user_id}")
+        
+        # Send typing indicator
+        await update.message.chat.send_action("typing")
+        
+        try:
+            # Get voice file from Telegram
+            voice = update.message.voice
+            file = await context.bot.get_file(voice.file_id)
+            
+            # Download to temp file
+            with tempfile.NamedTemporaryFile(suffix=".ogg", delete=False) as tmp_file:
+                tmp_path = tmp_file.name
+                await file.download_to_drive(tmp_path)
+            
+            try:
+                # Transcribe audio
+                logger.info(f"Transcribing voice message from user {user_id}")
+                transcribed_text = self._transcribe_audio(tmp_path)
+                logger.info(f"Transcribed: {transcribed_text[:100]}...")
+                
+                # Show user what we understood
+                await update.message.reply_text(f"🎤 *Entendí:* _{transcribed_text}_\n\n⏳ Buscando respuesta...", parse_mode='Markdown')
+                
+                # Process through RAG pipeline (same as text)
+                rag_context = self.rag.get_context_for_query(transcribed_text, n_results=5)
+                response = self._generate_response(transcribed_text, rag_context)
+                
+                # Send response
+                await update.message.reply_text(response)
+                logger.info(f"Sent response to voice query from user {user_id}")
+                
+            finally:
+                # Clean up temp file
+                Path(tmp_path).unlink(missing_ok=True)
+                
+        except Exception as e:
+            logger.error(f"Error handling voice message: {e}")
+            await update.message.reply_text(
+                "Lo siento, hubo un error procesando tu mensaje de voz. Por favor intenta de nuevo o escribe tu pregunta."
+            )
+    
     async def start_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /start command."""
         welcome_message = """🚗 ¡Bienvenido al Bot del Código de Tránsito de Colombia!
@@ -83,20 +144,21 @@ Soy un asistente especializado en normativa de tránsito colombiana:
 • Decreto 2106 de 2019 (Simplificación de trámites)
 
 📚 **¿Cómo puedo ayudarte?**
-Simplemente envíame tu pregunta sobre:
+Escríbeme o **envíame un audio** 🎤 explicando tu situación:
 • Normas de tránsito y señales
-• Límites de velocidad
-• Multas, infracciones y descuentos por pronto pago
-• Licencias de conducción y requisitos
+• Multas, infracciones y descuentos
+• Licencias de conducción
 • Derechos de conductores (documentos digitales vs físicos)
+• Cómo defenderte de fotomultas
 • Revisión técnico-mecánica
-• Sistemas de fotomultas
 • Y cualquier otro tema del código de tránsito
 
-✍️ **Ejemplos de preguntas:**
-• "¿Cuál es la multa por no usar el cinturón de seguridad?"
-• "¿Me pueden exigir el certificado físico de la revisión técnico-mecánica?"
-• "¿Cómo puedo obtener descuento en una multa?"
+✍️ **Ejemplos:**
+• "¿Cuál es la multa por no usar cinturón?"
+• "¿Me pueden exigir documentos físicos en un retén?"
+• "¿Cómo tumbo una fotomulta?"
+
+🎤 **También puedes enviar audio** explicando tu caso y te ayudo.
 
 ¡Hazme tu pregunta!"""
         
@@ -162,6 +224,7 @@ Simplemente escribe tu pregunta sobre el código de tránsito colombiano y te re
         self.application.add_handler(CommandHandler("start", self.start_command))
         self.application.add_handler(CommandHandler("help", self.help_command))
         self.application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, self.handle_message))
+        self.application.add_handler(MessageHandler(filters.VOICE, self.handle_voice))
         
         # Start polling
         logger.info("Bot is running. Press Ctrl+C to stop.")
