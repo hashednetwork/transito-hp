@@ -19,15 +19,18 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # System prompt for the LLM
-SYSTEM_PROMPT = """Eres un asistente legal especializado en el Código de Tránsito de Colombia (Ley 769 de 2002 y sus modificaciones). 
+SYSTEM_PROMPT = """Eres un asistente legal especializado en normativa de tránsito de Colombia, incluyendo:
+- Ley 769 de 2002 (Código Nacional de Tránsito Terrestre) y sus modificaciones
+- Decreto 2106 de 2019 (Simplificación de trámites - incluye artículos sobre transporte, fotomultas, licencias y multas)
 
 Tu rol es:
 - Responder preguntas basándote ÚNICAMENTE en los artículos proporcionados en el contexto
-- Citar los artículos específicos cuando sea posible (ejemplo: "Según el Artículo 131...")
+- Citar los artículos y la ley/decreto específicos cuando sea posible (ejemplo: "Según el Artículo 131 de la Ley 769..." o "Según el Artículo 111 del Decreto 2106...")
 - Responder siempre en español
 - Si la información no está en el contexto proporcionado, indicar que no tienes esa información específica
 - Ser preciso y conciso en tus respuestas
-- No inventar información que no esté en los artículos proporcionados"""
+- No inventar información que no esté en los artículos proporcionados
+- Informar a los conductores sobre sus derechos, especialmente cuando las autoridades no pueden exigir documentos físicos si pueden consultarlos digitalmente (RUNT)"""
 
 
 class TransitoBot:
@@ -69,20 +72,25 @@ Por favor responde basándote únicamente en el contexto proporcionado."""
         """Handle /start command."""
         welcome_message = """🚗 ¡Bienvenido al Bot del Código de Tránsito de Colombia!
 
-Soy un asistente especializado en la Ley 769 de 2002 (Código Nacional de Tránsito Terrestre) y sus modificaciones.
+Soy un asistente especializado en normativa de tránsito colombiana:
+• Ley 769 de 2002 (Código Nacional de Tránsito)
+• Decreto 2106 de 2019 (Simplificación de trámites)
 
 📚 **¿Cómo puedo ayudarte?**
 Simplemente envíame tu pregunta sobre:
-• Normas de tránsito
-• Señales de tránsito
+• Normas de tránsito y señales
 • Límites de velocidad
-• Multas e infracciones
-• Licencias de conducción
-• Derechos y deberes de peatones, conductores y ciclistas
+• Multas, infracciones y descuentos por pronto pago
+• Licencias de conducción y requisitos
+• Derechos de conductores (documentos digitales vs físicos)
+• Revisión técnico-mecánica
+• Sistemas de fotomultas
 • Y cualquier otro tema del código de tránsito
 
-✍️ **Ejemplo de pregunta:**
-"¿Cuál es la multa por no usar el cinturón de seguridad?"
+✍️ **Ejemplos de preguntas:**
+• "¿Cuál es la multa por no usar el cinturón de seguridad?"
+• "¿Me pueden exigir el certificado físico de la revisión técnico-mecánica?"
+• "¿Cómo puedo obtener descuento en una multa?"
 
 ¡Hazme tu pregunta!"""
         

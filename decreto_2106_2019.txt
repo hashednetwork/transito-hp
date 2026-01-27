@@ -1,0 +1,100 @@
+DECRETO 2106 DE 2019
+(Noviembre 22)
+
+"Por el cual se dictan normas para simplificar, suprimir y reformar trámites, procesos y procedimientos innecesarios existentes en la administración pública"
+
+EL PRESIDENTE DE LA REPÚBLICA DE COLOMBIA
+
+TÍTULO I
+DISPOSICIONES GENERALES
+
+CAPÍTULO I
+Objeto, ámbito de aplicación y medidas para la implementación
+
+ARTÍCULO 1. Objeto. El presente decreto tiene por objeto simplificar, suprimir y reformar trámites, procesos y procedimientos innecesarios existentes en la Administración Pública, bajo los principios constitucionales y legales que rigen la función pública, con el propósito de garantizar la efectividad de los principios, derechos y deberes de las personas consagrados en la Constitución mediante trámites, procesos y procedimientos administrativos sencillos, ágiles, coordinados, modernos y digitales.
+
+ARTÍCULO 2. Ámbito de aplicación. El presente decreto se aplicará a todos los organismos, entidades y personas integrantes de la Administración Pública en los términos del artículo 39 de la Ley 489 de 1998, y a los particulares cuando cumplan funciones administrativas o públicas. A todos ellos se les dará el nombre de autoridades.
+
+ARTÍCULO 7. Cobros no autorizados. "ARTÍCULO 16. Cobros no autorizados. Ningún organismo o entidad de la Administración Pública Nacional, departamental, distrital o municipal, podrá cobrar por la realización de sus funciones valor alguno por concepto de tasas, contribuciones, certificaciones, formularios o precio de servicios que no estén expresamente autorizados por la ley o mediante norma expedida por las corporaciones públicas del orden territorial. El cobro y la actualización de las tarifas deberá hacerse en los términos señalados en la ley, ordenanza o acuerdo que las autorizó.
+
+Las autoridades no podrán incrementar las tarifas o establecer cobros por efectos de la automatización, estandarización o mejora de los procesos asociados a la gestión de los trámites."
+
+CAPÍTULO II
+Transformación Digital para una Gestión Pública Efectiva
+
+ARTÍCULO 10. Interoperabilidad de la información de las autoridades integradas a los Servicios Ciudadanos Digitales. Las autoridades deberán vincular a los mecanismos que disponga la Agencia Nacional Digital, los instrumentos, programas, mecanismos, desarrollos, plataformas, aplicaciones, entre otros, que contribuyan a masificar las capacidades del Estado en la prestación de Servicios Ciudadanos Digitales.
+
+Las autoridades no exigirán a los ciudadanos los requisitos o documentos que reposen en bases de datos o sistemas de información que se encuentren integrados en el servicio ciudadano digital de interoperabilidad.
+
+ARTÍCULO 19. Desmaterialización de certificados, constancias, paz y salvos o carnés. Las autoridades que en ejercicio de sus funciones emitan certificados, constancias, paz y salvos o carnés, respecto de cualquier situación de hecho o de derecho de un particular, deberán organizar dicha información como un registro público y habilitar su consulta gratuita en medios digitales.
+
+TITULO III
+DISPOSICIONES ESPECIALES
+
+CAPITULO VII
+Transporte
+
+ARTÍCULO 109. Criterios para la instalación y puesta en operación. Todo sistema automático, semiautomático y otros medios tecnológicos para la detección de presuntas infracciones al tránsito que se pretenda instalar, deberá cumplir con los criterios técnicos de seguridad vial que para su instalación y operación establezca el Ministerio de Transporte en conjunto con la Agencia Nacional de Seguridad Vial.
+
+Los sistemas automáticos, semiautomáticos y otros medios tecnológicos que se pretendan instalar, deberán contar con autorización de la Agencia Nacional de Seguridad Vial, la cual se otorgará de acuerdo con la reglamentación expedida por el Ministerio de Transporte y la Agencia Nacional de Seguridad Vial.
+
+PARÁGRAFO. Toda autorización otorgada en Colombia para la instalación de sistemas automáticos, semiautomáticos y otros medios tecnológicos para la detección de presuntas infracciones al tránsito, tendrá una duración de cinco (5) años, contados a partir de la fecha de su otorgamiento.
+
+ARTÍCULO 110. Diseño, implementación y verificación del plan estratégico de seguridad vial. Toda entidad, organización o empresa del sector público o privado, que cuente con una flota de vehículos automotores o no automotores superior a diez (10) unidades, o que contrate o administre personal de conductores, deberá diseñar e implementar un Plan Estratégico de Seguridad Vial en función de su misionalidad y tamaño, de acuerdo con la metodología expedida por el Ministerio de Transporte y articularlo con su Sistema de Gestión de Seguridad y Salud en el Trabajo SGSST.
+
+En ningún caso el Plan Estratégico de Seguridad Vial requerirá aval para su implementación.
+
+Para tal efecto, deberá diseñar el Plan Estratégico de Seguridad Vial que contendrá como mínimo:
+
+1. Diagnóstico y caracterización de los riesgos de seguridad vial de la empresa, asociados a la flota de vehículos o al personal de conductores.
+
+2. Capacitaciones en seguridad vial a los trabajadores de su entidad organización o empresa independientemente del cargo o rol que desempeñe.
+
+3. Compromisos claros del nivel directivo de la entidad organización o empresa orientados al cumplimiento de las acciones y estrategias en seguridad vial.
+
+4. Actividades de inspección y mantenimiento periódico a los vehículos de la entidad organización o empresa incluidos los vehículos propios de los trabajadores puestos al servicio de la organización para el cumplimiento misional de su objeto o función.
+
+ARTÍCULO 111. Centros de diagnóstico automotor. La revisión técnico-mecánica y de emisiones contaminantes se realizará en centros de diagnóstico automotor, legalmente constituidos y registrados ante el RUNT, que posean las condiciones mínimas que determinen los reglamentos emitidos por el Ministerio de Transporte y el Ministerio de Ambiente y de desarrollo sostenible, en el marco de sus competencias.
+
+Los resultados de la revisión técnico-mecánica y de emisiones contaminantes, serán consignados en un documento uniforme cuyas características determinará el Ministerio de Transporte; la aceptación de las condiciones de la revisión técnico-mecánica y de emisiones contaminantes del vehículo, se dará mediante el Certificado de Revisión técnico-mecánica y de emisiones contaminantes, el cual será entregado al solicitante de manera virtual y con código seguro de verificación, así como con opción de consulta Centros de Diagnóstico Automotor y agentes de tránsito, a través del Registro Único Nacional de Tránsito-RUNT. Para la revisión del vehículo automotor, se requerirá contar con la licencia de tránsito y el correspondiente seguro obligatorio vigente.
+
+PARÁGRAFO 1. Quien no cuente con certificado vigente incurrirá en las sanciones previstas en la ley. Para todos los efectos este será considerado como documento público.
+
+PARÁGRAFO 2. La Autoridad de Tránsito deberá realizar la consulta a través del Registro Único Nacional de Tránsito del cumplimiento de la revisión técnico mecánica y de emisiones contaminantes, por lo tanto, no podrá exigir el certificado físico de la revisión técnico mecánica y de emisiones contaminantes.
+
+ARTÍCULO 118. Reducción de la multa. Los numerales 1 y 2 del artículo 136 de la Ley 769 de 2002 se modifican así:
+
+1. Cancelar el cincuenta por ciento (50%) del valor de la multa dentro de los cinco (5) días siguientes a la orden de comparendo y siempre y cuando asista obligatoriamente a un curso sobre normas de tránsito en un Organismo de Tránsito o en un Centro de Enseñanza Automovilística o un Centro integral de atención debidamente registrados ante el RUNT. Si el curso se realiza ante un Centro de Enseñanza Automovilística o en Centro integral de atención, o en un organismo de tránsito de diferente jurisdicción donde se cometió la infracción, a éste se le cancelará un veinticinco por ciento (25%) del valor a pagar y el excedente se pagará al organismo de tránsito de la jurisdicción donde se cometió la infracción; o
+
+2. Cancelar el setenta y cinco por ciento (75%) del valor de la multa, si paga dentro de los veinte días siguientes a la orden de comparendo y siempre y cuando asista obligatoriamente a un curso sobre normas de tránsito en un Organismo de Tránsito, en un Centros de Enseñanza Automovilística, o un Centro integral de atención debidamente registrados ante el RUNT. Si el curso se realiza ante un Centro de Enseñanza Automovilística, o Centro integral de atención o en un organismo de tránsito de diferente jurisdicción donde se cometió la infracción, a este se le cancelará un veinticinco por ciento (25%) del valor a pagar y el excedente se pagará al Organismo de Tránsito de la jurisdicción donde se cometió la infracción.
+
+ARTÍCULO 119. Requisitos para licencia de conducción. Podrá obtener una licencia de conducción para vehículos automotores quien acredite el cumplimiento de los siguientes requisitos:
+
+Para vehículos particulares:
+
+a) Saber leer y escribir.
+
+b) Tener dieciséis (16) años cumplidos.
+
+c) Aprobar exámenes teórico y práctico de conducción, practicados por Instituciones de Educación Superior de Naturaleza Pública reconocidas por el Ministerio de Educación Nacional, que garanticen cobertura nacional para la realización de las pruebas, en el marco de la autonomía de las mismas y de conformidad con la reglamentación que expida el Ministerio de Transporte, cuyo resultado será registrado en el sistema RUNT.
+
+En las entidades territoriales donde las Instituciones de Educación Superior mencionadas en el inciso anterior, no puedan garantizar la cobertura en la prestación de dicho servicio, se facultará a las autoridades públicas y entidades privadas que estén registradas en el sistema RUNT, para practicar los exámenes de que trata este literal, de conformidad con la reglamentación que expida el Ministerio de Transporte.
+
+d) Obtener un certificado de capacitación en conducción otorgado por un centro de enseñanza automovilística registrado ante el RUNT.
+
+e) Presentar certificado en el que conste una condición idónea, la aptitud física, mental y de coordinación motriz para conducir, expedido por una Institución Prestadora de Salud o por un Centro de Reconocimiento de Conductores registrado ante el RUNT.
+
+Para vehículos de servicio público:
+
+Se exigirán los requisitos anteriormente señalados. Adicionalmente, tener por lo menos dieciocho (18) años cumplidos y, aprobar el examen teórico y práctico de conducción para vehículos de servicio público, de conformidad con la reglamentación que expida el Ministerio de Transporte.
+
+Los conductores de servicio público deben recibir capacitación y obtener la certificación en los temas que determine el Ministerio de Transporte.
+
+PARÁGRAFO. Para obtener la licencia de conducción por primera vez, o la recategorización, o la renovación de la misma, se debe demostrar ante las autoridades de tránsito la aptitud física, mental y de coordinación motriz, valiéndose para su valoración de los medios tecnológicos sistematizados y digitalizados requeridos y los instrumentos médicos pertinentes que permitan medir y evaluar dentro de los rangos establecidos por el Ministerio de Transporte según los parámetros y límites internacionales entre otros: las capacidades de visión y orientación auditiva, la agudeza visual y campimetría, los tiempos de reacción y recuperación al encandilamiento, la capacidad de coordinación entre la aceleración y el frenado, la coordinación integral motriz de la persona, la discriminación de colores y la franja horizontal y vertical.
+
+ARTÍCULO 37. Impuesto sobre vehículos automotores. El formulario de declaración y pago del impuesto sobre vehículos automotores será diseñado y adoptado por el Departamento Administrativo de la Función Pública, en coordinación con los Departamentos y el Distrito Capital y con el apoyo técnico del Ministerio de Hacienda y Crédito Público y la Federación Nacional de Departamentos. Estos formularios serán de uso obligatorio.
+
+NOTA IMPORTANTE: Este decreto simplifica trámites administrativos. Las autoridades de tránsito NO pueden exigir documentos físicos cuando la información esté disponible en bases de datos digitales (RUNT). Por ejemplo:
+- NO pueden exigir el certificado físico de la revisión técnico-mecánica si pueden consultarlo en el RUNT
+- NO pueden cobrar tasas o tarifas que no estén expresamente autorizadas por ley
+- Los sistemas de fotomultas deben estar autorizados por la Agencia Nacional de Seguridad Vial
