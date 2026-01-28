@@ -7,11 +7,19 @@ import tempfile
 from typing import Optional
 from pathlib import Path
 
-from telegram import Update
-from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import (
+    Application, CommandHandler, MessageHandler, CallbackQueryHandler,
+    ConversationHandler, filters, ContextTypes
+)
 from openai import OpenAI
 
 from .rag import RAGPipeline
+from .document_generator import DerechoPeticionGenerator
+
+# Conversation states for document generation
+(SELECTING_TEMPLATE, NOMBRE, CEDULA, DIRECCION, TELEFONO, EMAIL, 
+ CIUDAD, COMPARENDO, FECHA, PLACA, HECHOS, CONFIRMAR) = range(12)
 
 # Configure logging
 logging.basicConfig(
@@ -47,7 +55,9 @@ class TransitoBot:
         self.rag = rag_pipeline
         self.telegram_token = telegram_token
         self.openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        self.doc_generator = DerechoPeticionGenerator()
         self.application: Optional[Application] = None
+        self.user_data = {}  # Store user document data during conversation
         
     def _generate_response(self, query: str, context: str) -> str:
         """Generate a response using GPT-4 with the retrieved context."""
@@ -203,11 +213,13 @@ Escríbeme o **envíame un audio** 🎤 explicando tu situación:
 /start - Mensaje de bienvenida
 /help - Esta ayuda
 /voz [pregunta] - Respuesta en texto Y audio 🔊
+/documento - Generar Derecho de Petición PDF 📄
 
 **¿Cómo usar el bot?**
 • Escribe tu pregunta → respuesta en texto
 • Envía audio 🎤 → respuesta en texto + audio
 • Usa /voz [pregunta] → respuesta en texto + audio
+• Usa /documento → genera PDF para defenderte
 
 **Tips para mejores respuestas:**
 • Sé específico en tu pregunta
@@ -216,7 +228,7 @@ Escríbeme o **envíame un audio** 🎤 explicando tu situación:
 **Ejemplos:**
 • "¿Cuál es la multa por no usar cinturón?"
 • /voz ¿Me pueden quitar la licencia por multas?
-• 🎤 [audio explicando tu caso]
+• /documento (para generar Derecho de Petición)
 """
         await update.message.reply_text(help_message, parse_mode='Markdown')
     
@@ -290,6 +302,212 @@ Escríbeme o **envíame un audio** 🎤 explicando tu situación:
                 "Lo siento, hubo un error procesando tu pregunta. Por favor intenta de nuevo más tarde."
             )
     
+    # ============= DOCUMENT GENERATION CONVERSATION =============
+    
+    async def documento_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+        """Start document generation - /documento command."""
+        keyboard = [
+            [InlineKeyboardButton("📅 Prescripción (multa > 3 años)", callback_data="doc_prescripcion")],
+            [InlineKeyboardButton("📬 Sin notificación oportuna", callback_data="doc_fotomulta_notificacion")],
+            [InlineKeyboardButton("👤 No identifican al conductor", callback_data="doc_fotomulta_identificacion")],
+            [InlineKeyboardButton("🚫 Sin señalización (500m)", callback_data="doc_fotomulta_señalizacion")],
+            [InlineKeyboardButton("❌ Cancelar", callback_data="doc_cancel")]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        
+        await update.message.reply_text(
+            "📄 *GENERAR DERECHO DE PETICIÓN*\n\n"
+            "Selecciona el tipo de documento que necesitas:",
+            reply_markup=reply_markup,
+            parse_mode='Markdown'
+        )
+        return SELECTING_TEMPLATE
+    
+    async def template_selected(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+        """Handle template selection."""
+        query = update.callback_query
+        await query.answer()
+        
+        if query.data == "doc_cancel":
+            await query.edit_message_text("❌ Generación de documento cancelada.")
+            return ConversationHandler.END
+        
+        template_type = query.data.replace("doc_", "")
+        user_id = update.effective_user.id
+        self.user_data[user_id] = {"template": template_type}
+        
+        templates_names = {
+            "prescripcion": "Prescripción de multa",
+            "fotomulta_notificacion": "Nulidad por falta de notificación",
+            "fotomulta_identificacion": "Nulidad por no identificar conductor",
+            "fotomulta_señalizacion": "Nulidad por falta de señalización"
+        }
+        
+        await query.edit_message_text(
+            f"✅ Tipo: *{templates_names.get(template_type, template_type)}*\n\n"
+            "Ahora necesito tus datos. Escribe tu *nombre completo*:",
+            parse_mode='Markdown'
+        )
+        return NOMBRE
+    
+    async def get_nombre(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+        user_id = update.effective_user.id
+        self.user_data[user_id]["nombre"] = update.message.text
+        await update.message.reply_text("📝 Escribe tu *número de cédula*:", parse_mode='Markdown')
+        return CEDULA
+    
+    async def get_cedula(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+        user_id = update.effective_user.id
+        self.user_data[user_id]["cedula"] = update.message.text
+        await update.message.reply_text("🏠 Escribe tu *dirección completa* (para notificaciones):", parse_mode='Markdown')
+        return DIRECCION
+    
+    async def get_direccion(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+        user_id = update.effective_user.id
+        self.user_data[user_id]["direccion"] = update.message.text
+        await update.message.reply_text("📱 Escribe tu *número de teléfono*:", parse_mode='Markdown')
+        return TELEFONO
+    
+    async def get_telefono(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+        user_id = update.effective_user.id
+        self.user_data[user_id]["telefono"] = update.message.text
+        await update.message.reply_text("📧 Escribe tu *correo electrónico*:", parse_mode='Markdown')
+        return EMAIL
+    
+    async def get_email(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+        user_id = update.effective_user.id
+        self.user_data[user_id]["email"] = update.message.text
+        await update.message.reply_text("🏙️ ¿En qué *ciudad* está la autoridad de tránsito? (ej: Bogotá D.C., Medellín):", parse_mode='Markdown')
+        return CIUDAD
+    
+    async def get_ciudad(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+        user_id = update.effective_user.id
+        self.user_data[user_id]["ciudad"] = update.message.text
+        await update.message.reply_text("🔢 Escribe el *número del comparendo/multa*:", parse_mode='Markdown')
+        return COMPARENDO
+    
+    async def get_comparendo(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+        user_id = update.effective_user.id
+        self.user_data[user_id]["comparendo"] = update.message.text
+        await update.message.reply_text("📅 ¿Cuál fue la *fecha de la infracción*? (ej: 15 de enero de 2022):", parse_mode='Markdown')
+        return FECHA
+    
+    async def get_fecha(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+        user_id = update.effective_user.id
+        self.user_data[user_id]["fecha"] = update.message.text
+        await update.message.reply_text("🚗 Escribe la *placa del vehículo*:", parse_mode='Markdown')
+        return PLACA
+    
+    async def get_placa(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+        user_id = update.effective_user.id
+        self.user_data[user_id]["placa"] = update.message.text
+        await update.message.reply_text(
+            "📝 Describe brevemente los *hechos adicionales* de tu caso.\n"
+            "(Ej: 'Nunca recibí notificación', 'La cámara no tenía señalización', etc.)\n\n"
+            "Escribe /saltar si no tienes hechos adicionales.",
+            parse_mode='Markdown'
+        )
+        return HECHOS
+    
+    async def get_hechos(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+        user_id = update.effective_user.id
+        text = update.message.text
+        self.user_data[user_id]["hechos"] = "" if text == "/saltar" else text
+        
+        data = self.user_data[user_id]
+        resumen = f"""
+📄 *RESUMEN DE TU DOCUMENTO*
+
+👤 *Nombre:* {data['nombre']}
+🆔 *Cédula:* {data['cedula']}
+🏠 *Dirección:* {data['direccion']}
+📱 *Teléfono:* {data['telefono']}
+📧 *Email:* {data['email']}
+🏙️ *Ciudad autoridad:* {data['ciudad']}
+🔢 *Comparendo:* {data['comparendo']}
+📅 *Fecha infracción:* {data['fecha']}
+🚗 *Placa:* {data['placa']}
+
+¿Generar el documento PDF?
+"""
+        keyboard = [
+            [InlineKeyboardButton("✅ Generar PDF", callback_data="doc_generar")],
+            [InlineKeyboardButton("❌ Cancelar", callback_data="doc_cancel_final")]
+        ]
+        await update.message.reply_text(resumen, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
+        return CONFIRMAR
+    
+    async def generar_documento(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+        """Generate and send the PDF document."""
+        query = update.callback_query
+        await query.answer()
+        
+        if query.data == "doc_cancel_final":
+            user_id = update.effective_user.id
+            if user_id in self.user_data:
+                del self.user_data[user_id]
+            await query.edit_message_text("❌ Generación cancelada.")
+            return ConversationHandler.END
+        
+        user_id = update.effective_user.id
+        data = self.user_data.get(user_id, {})
+        
+        await query.edit_message_text("⏳ Generando tu documento PDF...")
+        
+        try:
+            pdf_buffer = self.doc_generator.generate_document(
+                template_type=data['template'],
+                nombre_completo=data['nombre'],
+                cedula=data['cedula'],
+                direccion=data['direccion'],
+                telefono=data['telefono'],
+                email=data['email'],
+                ciudad_autoridad=data['ciudad'],
+                numero_comparendo=data['comparendo'],
+                fecha_infraccion=data['fecha'],
+                placa_vehiculo=data['placa'],
+                hechos_adicionales=data.get('hechos', '')
+            )
+            
+            filename = f"Derecho_Peticion_{data['comparendo'].replace(' ', '_')}.pdf"
+            
+            await context.bot.send_document(
+                chat_id=update.effective_chat.id,
+                document=pdf_buffer,
+                filename=filename,
+                caption="📄 *¡Tu Derecho de Petición está listo!*\n\n"
+                        "✅ Imprímelo y fírmalo\n"
+                        "✅ Radícalo en la Secretaría de Tránsito\n"
+                        "✅ Guarda copia con sello de radicado\n"
+                        "✅ Tienen 15 días hábiles para responder",
+                parse_mode='Markdown'
+            )
+            
+            logger.info(f"Generated document for user {user_id}: {filename}")
+            
+        except Exception as e:
+            logger.error(f"Error generating document: {e}")
+            await context.bot.send_message(
+                chat_id=update.effective_chat.id,
+                text="❌ Error generando el documento. Por favor intenta de nuevo."
+            )
+        
+        # Clean up user data
+        if user_id in self.user_data:
+            del self.user_data[user_id]
+        
+        return ConversationHandler.END
+    
+    async def cancel_documento(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+        """Cancel document generation."""
+        user_id = update.effective_user.id
+        if user_id in self.user_data:
+            del self.user_data[user_id]
+        await update.message.reply_text("❌ Generación de documento cancelada.")
+        return ConversationHandler.END
+    
+    # ============= END DOCUMENT GENERATION =============
+    
     def run(self) -> None:
         """Run the bot."""
         logger.info("Starting Transito HP Bot...")
@@ -301,6 +519,31 @@ Escríbeme o **envíame un audio** 🎤 explicando tu situación:
         self.application.add_handler(CommandHandler("start", self.start_command))
         self.application.add_handler(CommandHandler("help", self.help_command))
         self.application.add_handler(CommandHandler("voz", self.voz_command))
+        
+        # Document generation conversation handler
+        doc_conv_handler = ConversationHandler(
+            entry_points=[CommandHandler("documento", self.documento_command)],
+            states={
+                SELECTING_TEMPLATE: [CallbackQueryHandler(self.template_selected)],
+                NOMBRE: [MessageHandler(filters.TEXT & ~filters.COMMAND, self.get_nombre)],
+                CEDULA: [MessageHandler(filters.TEXT & ~filters.COMMAND, self.get_cedula)],
+                DIRECCION: [MessageHandler(filters.TEXT & ~filters.COMMAND, self.get_direccion)],
+                TELEFONO: [MessageHandler(filters.TEXT & ~filters.COMMAND, self.get_telefono)],
+                EMAIL: [MessageHandler(filters.TEXT & ~filters.COMMAND, self.get_email)],
+                CIUDAD: [MessageHandler(filters.TEXT & ~filters.COMMAND, self.get_ciudad)],
+                COMPARENDO: [MessageHandler(filters.TEXT & ~filters.COMMAND, self.get_comparendo)],
+                FECHA: [MessageHandler(filters.TEXT & ~filters.COMMAND, self.get_fecha)],
+                PLACA: [MessageHandler(filters.TEXT & ~filters.COMMAND, self.get_placa)],
+                HECHOS: [
+                    MessageHandler(filters.TEXT & ~filters.COMMAND, self.get_hechos),
+                    CommandHandler("saltar", self.get_hechos)
+                ],
+                CONFIRMAR: [CallbackQueryHandler(self.generar_documento)],
+            },
+            fallbacks=[CommandHandler("cancelar", self.cancel_documento)],
+        )
+        self.application.add_handler(doc_conv_handler)
+        
         self.application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, self.handle_message))
         self.application.add_handler(MessageHandler(filters.VOICE, self.handle_voice))
         
