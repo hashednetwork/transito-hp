@@ -90,6 +90,27 @@ Por favor responde basándote únicamente en el contexto proporcionado."""
             logger.error(f"Error transcribing audio: {e}")
             raise
     
+    def _text_to_speech(self, text: str, output_path: str) -> bool:
+        """Convert text to speech using OpenAI TTS API."""
+        try:
+            # Limit text length for TTS (max ~4096 chars works well)
+            if len(text) > 4000:
+                text = text[:4000] + "... Para más detalles, lee el mensaje de texto."
+            
+            response = self.openai_client.audio.speech.create(
+                model="tts-1",  # or "tts-1-hd" for higher quality
+                voice="nova",   # Options: alloy, echo, fable, onyx, nova, shimmer
+                input=text,
+                response_format="opus"  # Good for Telegram voice messages
+            )
+            
+            # Save to file
+            response.stream_to_file(output_path)
+            return True
+        except Exception as e:
+            logger.error(f"Error generating TTS: {e}")
+            return False
+    
     async def handle_voice(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle incoming voice messages."""
         user_id = update.effective_user.id
@@ -121,8 +142,18 @@ Por favor responde basándote únicamente en el contexto proporcionado."""
                 rag_context = self.rag.get_context_for_query(transcribed_text, n_results=5)
                 response = self._generate_response(transcribed_text, rag_context)
                 
-                # Send response
+                # Send text response first
                 await update.message.reply_text(response)
+                
+                # Also send voice response since user sent voice
+                voice_path = tmp_path.replace(".ogg", "_response.opus")
+                if self._text_to_speech(response, voice_path):
+                    try:
+                        await update.message.reply_voice(voice=open(voice_path, "rb"))
+                        logger.info(f"Sent voice response to user {user_id}")
+                    finally:
+                        Path(voice_path).unlink(missing_ok=True)
+                
                 logger.info(f"Sent response to voice query from user {user_id}")
                 
             finally:
@@ -171,21 +202,67 @@ Escríbeme o **envíame un audio** 🎤 explicando tu situación:
 **Comandos disponibles:**
 /start - Mensaje de bienvenida
 /help - Esta ayuda
+/voz [pregunta] - Respuesta en texto Y audio 🔊
 
 **¿Cómo usar el bot?**
-Simplemente escribe tu pregunta sobre el código de tránsito colombiano y te responderé basándome en los artículos relevantes.
+• Escribe tu pregunta → respuesta en texto
+• Envía audio 🎤 → respuesta en texto + audio
+• Usa /voz [pregunta] → respuesta en texto + audio
 
 **Tips para mejores respuestas:**
 • Sé específico en tu pregunta
 • Menciona el tema concreto (multas, velocidad, licencias, etc.)
-• Puedes preguntar por artículos específicos
 
 **Ejemplos:**
-• "¿Qué dice el artículo 131 sobre infracciones?"
-• "¿Cuáles son los requisitos para obtener licencia de conducción?"
-• "¿Qué sanciones hay por conducir embriagado?"
+• "¿Cuál es la multa por no usar cinturón?"
+• /voz ¿Me pueden quitar la licencia por multas?
+• 🎤 [audio explicando tu caso]
 """
         await update.message.reply_text(help_message, parse_mode='Markdown')
+    
+    async def voz_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Handle /voz command - respond with text AND voice."""
+        user_id = update.effective_user.id
+        
+        # Get the query (everything after /voz)
+        user_query = ' '.join(context.args) if context.args else None
+        
+        if not user_query:
+            await update.message.reply_text(
+                "🔊 Usa: /voz [tu pregunta]\n\nEjemplo: /voz ¿Qué pasa si no pago una multa?"
+            )
+            return
+        
+        logger.info(f"Voice query from user {user_id}: {user_query}")
+        await update.message.chat.send_action("typing")
+        
+        try:
+            # Process through RAG pipeline
+            rag_context = self.rag.get_context_for_query(user_query, n_results=5)
+            response = self._generate_response(user_query, rag_context)
+            
+            # Send text response
+            await update.message.reply_text(response)
+            
+            # Generate and send voice response
+            with tempfile.NamedTemporaryFile(suffix=".opus", delete=False) as tmp_file:
+                voice_path = tmp_file.name
+            
+            if self._text_to_speech(response, voice_path):
+                try:
+                    await update.message.chat.send_action("record_voice")
+                    await update.message.reply_voice(voice=open(voice_path, "rb"))
+                    logger.info(f"Sent voice response to user {user_id}")
+                finally:
+                    Path(voice_path).unlink(missing_ok=True)
+            else:
+                await update.message.reply_text("⚠️ No pude generar el audio, pero ahí está la respuesta en texto.")
+                
+        except Exception as e:
+            logger.error(f"Error handling /voz command: {e}")
+            await update.message.reply_text(
+                "Lo siento, hubo un error. Por favor intenta de nuevo."
+            )
     
     async def handle_message(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle incoming text messages."""
@@ -223,6 +300,7 @@ Simplemente escribe tu pregunta sobre el código de tránsito colombiano y te re
         # Add handlers
         self.application.add_handler(CommandHandler("start", self.start_command))
         self.application.add_handler(CommandHandler("help", self.help_command))
+        self.application.add_handler(CommandHandler("voz", self.voz_command))
         self.application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, self.handle_message))
         self.application.add_handler(MessageHandler(filters.VOICE, self.handle_voice))
         
