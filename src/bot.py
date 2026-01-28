@@ -415,26 +415,25 @@ Escríbeme o **envíame un audio** 🎤 explicando tu situación:
         self.user_data[user_id]["hechos"] = "" if text == "/saltar" else text
         
         data = self.user_data[user_id]
-        resumen = f"""
-📄 *RESUMEN DE TU DOCUMENTO*
+        # Use plain text to avoid Markdown parsing issues with user input
+        resumen = f"""📄 RESUMEN DE TU DOCUMENTO
 
-👤 *Nombre:* {data['nombre']}
-🆔 *Cédula:* {data['cedula']}
-🏠 *Dirección:* {data['direccion']}
-📱 *Teléfono:* {data['telefono']}
-📧 *Email:* {data['email']}
-🏙️ *Ciudad autoridad:* {data['ciudad']}
-🔢 *Comparendo:* {data['comparendo']}
-📅 *Fecha infracción:* {data['fecha']}
-🚗 *Placa:* {data['placa']}
+👤 Nombre: {data['nombre']}
+🆔 Cédula: {data['cedula']}
+🏠 Dirección: {data['direccion']}
+📱 Teléfono: {data['telefono']}
+📧 Email: {data['email']}
+🏙️ Ciudad autoridad: {data['ciudad']}
+🔢 Comparendo: {data['comparendo']}
+📅 Fecha infracción: {data['fecha']}
+🚗 Placa: {data['placa']}
 
-¿Generar el documento PDF?
-"""
+¿Generar el documento PDF?"""
         keyboard = [
             [InlineKeyboardButton("✅ Generar PDF", callback_data="doc_generar")],
             [InlineKeyboardButton("❌ Cancelar", callback_data="doc_cancel_final")]
         ]
-        await update.message.reply_text(resumen, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode='Markdown')
+        await update.message.reply_text(resumen, reply_markup=InlineKeyboardMarkup(keyboard))
         return CONFIRMAR
     
     async def generar_documento(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
