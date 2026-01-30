@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 import chromadb
 from openai import OpenAI
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from src.rag import extract_article_info
 
 # Load environment variables
 load_dotenv()
@@ -50,7 +51,7 @@ def load_and_chunk_document(file_path: str) -> list:
 
 
 def add_document(file_path: str, doc_prefix: str):
-    """Add a new document to the existing collection."""
+    """Add a new document to the existing collection with article/section metadata."""
     openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     chroma_client = chromadb.PersistentClient(path=PERSIST_DIR)
     collection = chroma_client.get_or_create_collection(
@@ -68,6 +69,11 @@ def add_document(file_path: str, doc_prefix: str):
     # Get existing count to create unique IDs
     existing_count = collection.count()
     
+    # Track current article/title/chapter for context propagation
+    current_title = None
+    current_chapter = None
+    current_article = None
+    
     # Process in batches
     batch_size = 100
     total_indexed = 0
@@ -76,6 +82,30 @@ def add_document(file_path: str, doc_prefix: str):
         batch = chunks[i:i + batch_size]
         batch_ids = [f"{doc_prefix}_chunk_{existing_count + i + j}" for j in range(len(batch))]
         
+        # Extract metadata for each chunk
+        batch_metadatas = []
+        for j, chunk in enumerate(batch):
+            extracted = extract_article_info(chunk)
+            
+            # Update current context if new info found
+            if extracted["title"]:
+                current_title = extracted["title"]
+            if extracted["chapter"]:
+                current_chapter = extracted["chapter"]
+            if extracted["article"]:
+                current_article = extracted["article"]
+            
+            # Use current context for chunks without explicit info
+            # ChromaDB doesn't accept None values, so use empty string as fallback
+            metadata = {
+                "source": doc_prefix,
+                "chunk_index": i + j,
+                "article": extracted["article"] or current_article or "",
+                "title": extracted["title"] or current_title or "",
+                "chapter": extracted["chapter"] or current_chapter or "",
+            }
+            batch_metadatas.append(metadata)
+        
         print(f"Embedding batch {i // batch_size + 1}/{(len(chunks) - 1) // batch_size + 1}...")
         embeddings = get_embeddings_batch(openai_client, batch)
         
@@ -83,7 +113,7 @@ def add_document(file_path: str, doc_prefix: str):
             ids=batch_ids,
             embeddings=embeddings,
             documents=batch,
-            metadatas=[{"source": doc_prefix, "chunk_index": i + j} for j in range(len(batch))]
+            metadatas=batch_metadatas
         )
         total_indexed += len(batch)
     

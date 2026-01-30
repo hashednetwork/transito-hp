@@ -8,8 +8,9 @@ import sys
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 import os
+import re
 from pathlib import Path
-from typing import List, Tuple
+from typing import List, Tuple, Dict, Optional
 
 import chromadb
 from chromadb.config import Settings
@@ -21,6 +22,76 @@ CHUNK_SIZE = 800
 CHUNK_OVERLAP = 150
 COLLECTION_NAME = "codigo_transito"
 EMBEDDING_MODEL = "text-embedding-3-small"
+
+# Document source display names
+SOURCE_NAMES = {
+    "codigo_transito": "Ley 769 de 2002 (Código de Tránsito)",
+    "codigo_penal": "Ley 599 de 2000 (Código Penal)",
+    "decreto_2106": "Decreto 2106 de 2019",
+    "senorbiter": "Guías Señor Biter",
+    "manual_senalizacion": "Manual de Señalización Vial de Colombia",
+}
+
+
+def extract_article_info(text: str) -> Dict[str, Optional[str]]:
+    """
+    Extract article number, title, and chapter from a text chunk.
+    Returns dict with 'article', 'title', 'chapter' keys.
+    """
+    info = {"article": None, "title": None, "chapter": None}
+    
+    # Pattern for articles: "Artículo 123" or "ARTÍCULO 123" with optional period/dash
+    article_pattern = r'[Aa]rt[íi]culo\.?\s*(\d+[A-Za-z]?)[\.\-\s]'
+    article_match = re.search(article_pattern, text)
+    if article_match:
+        info["article"] = f"Artículo {article_match.group(1)}"
+    
+    # Pattern for titles: "TÍTULO I" or "Título II" etc.
+    title_pattern = r'T[ÍI]TULO\s+([IVXLCDM]+|[\d]+)[\.\-\s]*([^\n]*)?'
+    title_match = re.search(title_pattern, text, re.IGNORECASE)
+    if title_match:
+        title_num = title_match.group(1)
+        title_name = title_match.group(2).strip() if title_match.group(2) else ""
+        info["title"] = f"Título {title_num}" + (f" - {title_name}" if title_name else "")
+    
+    # Pattern for chapters: "CAPÍTULO I" or "Capítulo 2" etc.
+    chapter_pattern = r'CAP[ÍI]TULO\s+([IVXLCDM]+|[\d]+)[\.\-\s]*([^\n]*)?'
+    chapter_match = re.search(chapter_pattern, text, re.IGNORECASE)
+    if chapter_match:
+        chap_num = chapter_match.group(1)
+        chap_name = chapter_match.group(2).strip() if chapter_match.group(2) else ""
+        info["chapter"] = f"Capítulo {chap_num}" + (f" - {chap_name}" if chap_name else "")
+    
+    # Pattern for sections (Penal code style): "LIBRO I" or "PARTE GENERAL"
+    libro_pattern = r'LIBRO\s+([IVXLCDM]+|[\d]+)[\.\-\s]*'
+    libro_match = re.search(libro_pattern, text, re.IGNORECASE)
+    if libro_match:
+        info["title"] = f"Libro {libro_match.group(1)}" + (f" - {info['title']}" if info.get('title') else "")
+    
+    return info
+
+
+def format_reference(metadata: Dict) -> str:
+    """Format metadata into a readable reference string."""
+    parts = []
+    
+    # Source document name
+    source = metadata.get("source", "")
+    source_name = SOURCE_NAMES.get(source, source)
+    if source_name:
+        parts.append(f"📖 {source_name}")
+    
+    # Article
+    if metadata.get("article"):
+        parts.append(f"📌 {metadata['article']}")
+    
+    # Chapter/Title
+    if metadata.get("chapter"):
+        parts.append(f"📂 {metadata['chapter']}")
+    elif metadata.get("title"):
+        parts.append(f"📂 {metadata['title']}")
+    
+    return " | ".join(parts) if parts else "Referencia no disponible"
 
 
 class RAGPipeline:
@@ -108,32 +179,43 @@ class RAGPipeline:
         print(f"Successfully indexed {total_indexed} chunks")
         return total_indexed
     
-    def retrieve(self, query: str, n_results: int = 5) -> List[Tuple[str, float]]:
-        """Retrieve top N relevant chunks for a query."""
+    def retrieve(self, query: str, n_results: int = 5) -> List[Tuple[str, float, Dict]]:
+        """Retrieve top N relevant chunks for a query with metadata."""
         query_embedding = self._get_embedding(query)
         
         results = self.collection.query(
             query_embeddings=[query_embedding],
             n_results=n_results,
-            include=["documents", "distances"]
+            include=["documents", "distances", "metadatas"]
         )
         
-        # Return list of (document, distance) tuples
+        # Return list of (document, distance, metadata) tuples
         documents = results['documents'][0] if results['documents'] else []
         distances = results['distances'][0] if results['distances'] else []
+        metadatas = results['metadatas'][0] if results['metadatas'] else []
         
-        return list(zip(documents, distances))
+        # Enrich metadata with extracted article info if not already present
+        enriched_results = []
+        for doc, dist, meta in zip(documents, distances, metadatas):
+            # If metadata doesn't have article info, extract it from the text
+            if not meta.get("article"):
+                extracted = extract_article_info(doc)
+                meta = {**meta, **extracted}
+            enriched_results.append((doc, dist, meta))
+        
+        return enriched_results
     
     def get_context_for_query(self, query: str, n_results: int = 5) -> str:
-        """Get formatted context string for a query."""
+        """Get formatted context string for a query with references."""
         results = self.retrieve(query, n_results)
         
         if not results:
             return "No se encontraron artículos relevantes."
         
         context_parts = []
-        for i, (doc, distance) in enumerate(results, 1):
-            context_parts.append(f"--- Fragmento {i} ---\n{doc}")
+        for i, (doc, distance, metadata) in enumerate(results, 1):
+            reference = format_reference(metadata)
+            context_parts.append(f"--- Fragmento {i} ---\n{reference}\n\n{doc}")
         
         return "\n\n".join(context_parts)
 

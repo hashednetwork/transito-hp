@@ -16,6 +16,10 @@ from openai import OpenAI
 
 from .rag import RAGPipeline
 from .document_generator import DerechoPeticionGenerator
+from . import analytics
+
+# Admin user IDs (Telegram)
+ADMIN_IDS = [935438639]  # Andres Garcia
 
 # Conversation states for document generation
 (SELECTING_TEMPLATE, NOMBRE, CEDULA, DIRECCION, TELEFONO, EMAIL, 
@@ -123,8 +127,30 @@ Por favor responde basándote únicamente en el contexto proporcionado."""
     
     async def handle_voice(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle incoming voice messages."""
-        user_id = update.effective_user.id
+        user = update.effective_user
+        user_id = user.id
         logger.info(f"Voice message from user {user_id}")
+        
+        # Check rate limit (10 messages per day)
+        is_allowed, remaining = analytics.check_rate_limit(user_id, daily_limit=10, admin_ids=ADMIN_IDS)
+        
+        if not is_allowed:
+            await update.message.reply_text(
+                "❌ Has alcanzado el límite diario de 10 consultas.\n\n"
+                "Por favor vuelve mañana para continuar usando el bot. 🕐\n\n"
+                "Si necesitas acceso ilimitado, contacta al administrador."
+            )
+            logger.info(f"Rate limit exceeded for user {user_id}")
+            return
+        
+        # Track analytics
+        analytics.track_query(user.id, user.username, user.first_name, 'voice', '[voice message]')
+        
+        # Show remaining queries if getting close to limit
+        if remaining <= 3 and remaining > 0:
+            await update.message.reply_text(
+                f"ℹ️ Te quedan {remaining} consulta{'s' if remaining > 1 else ''} hoy."
+            )
         
         # Send typing indicator
         await update.message.chat.send_action("typing")
@@ -178,6 +204,9 @@ Por favor responde basándote únicamente en el contexto proporcionado."""
     
     async def start_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /start command."""
+        user = update.effective_user
+        analytics.track_query(user.id, user.username, user.first_name, 'command', '/start')
+        
         welcome_message = """🚗 ¡Bienvenido al Bot del Código de Tránsito de Colombia!
 
 Soy un asistente especializado en normativa de tránsito colombiana:
@@ -232,9 +261,46 @@ Escríbeme o **envíame un audio** 🎤 explicando tu situación:
 """
         await update.message.reply_text(help_message, parse_mode='Markdown')
     
+    async def stats_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Handle /stats command - show usage statistics (admin only)."""
+        if update.effective_user.id not in ADMIN_IDS:
+            return  # Silently ignore non-admins
+        
+        stats = analytics.get_stats()
+        
+        # Format top users
+        top_users_text = ""
+        for i, u in enumerate(stats['top_users'][:5], 1):
+            name = u['first_name'] or u['username'] or f"User {u['user_id']}"
+            top_users_text += f"  {i}. {name}: {u['query_count']} consultas\n"
+        
+        # Format by type
+        by_type_text = ""
+        for qtype, count in stats['by_type'].items():
+            emoji = {'text': '💬', 'voice': '🎤', 'command': '⚡', 'document': '📄'}.get(qtype, '•')
+            by_type_text += f"  {emoji} {qtype}: {count}\n"
+        
+        stats_message = f"""📊 **Estadísticas del Bot**
+
+**Totales:**
+• Consultas totales: {stats['total_queries']}
+• Usuarios únicos: {stats['unique_users']}
+• Hoy: {stats['today_queries']} consultas
+• Esta semana: {stats['week_queries']} consultas
+
+**Por tipo:**
+{by_type_text}
+**Top usuarios:**
+{top_users_text if top_users_text else '  (sin datos aún)'}
+
+**Usuarios recientes (24h):** {len(stats['recent_users'])}
+"""
+        await update.message.reply_text(stats_message, parse_mode='Markdown')
+    
     async def voz_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /voz command - respond with text AND voice."""
-        user_id = update.effective_user.id
+        user = update.effective_user
+        user_id = user.id
         
         # Get the query (everything after /voz)
         user_query = ' '.join(context.args) if context.args else None
@@ -244,6 +310,27 @@ Escríbeme o **envíame un audio** 🎤 explicando tu situación:
                 "🔊 Usa: /voz [tu pregunta]\n\nEjemplo: /voz ¿Qué pasa si no pago una multa?"
             )
             return
+        
+        # Check rate limit (10 messages per day)
+        is_allowed, remaining = analytics.check_rate_limit(user_id, daily_limit=10, admin_ids=ADMIN_IDS)
+        
+        if not is_allowed:
+            await update.message.reply_text(
+                "❌ Has alcanzado el límite diario de 10 consultas.\n\n"
+                "Por favor vuelve mañana para continuar usando el bot. 🕐\n\n"
+                "Si necesitas acceso ilimitado, contacta al administrador."
+            )
+            logger.info(f"Rate limit exceeded for user {user_id}")
+            return
+        
+        # Track analytics
+        analytics.track_query(user.id, user.username, user.first_name, 'command', f'/voz {user_query}')
+        
+        # Show remaining queries if getting close to limit
+        if remaining <= 3 and remaining > 0:
+            await update.message.reply_text(
+                f"ℹ️ Te quedan {remaining} consulta{'s' if remaining > 1 else ''} hoy."
+            )
         
         logger.info(f"Voice query from user {user_id}: {user_query}")
         await update.message.chat.send_action("typing")
@@ -279,8 +366,31 @@ Escríbeme o **envíame un audio** 🎤 explicando tu situación:
     async def handle_message(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle incoming text messages."""
         user_query = update.message.text
-        user_id = update.effective_user.id
+        user = update.effective_user
+        user_id = user.id
         logger.info(f"Query from user {user_id}: {user_query}")
+        
+        # Check rate limit (10 messages per day)
+        is_allowed, remaining = analytics.check_rate_limit(user_id, daily_limit=10, admin_ids=ADMIN_IDS)
+        
+        if not is_allowed:
+            await update.message.reply_text(
+                "❌ Has alcanzado el límite diario de 10 consultas.\n\n"
+                "Por favor vuelve mañana para continuar usando el bot. 🕐\n\n"
+                "Si necesitas acceso ilimitado, contacta al administrador."
+            )
+            logger.info(f"Rate limit exceeded for user {user_id}")
+            return
+        
+        # Track analytics
+        analytics.track_query(user.id, user.username, user.first_name, 'text', user_query)
+        
+        # Show remaining queries if getting close to limit
+        if remaining <= 3 and remaining > 0:
+            await update.message.reply_text(
+                f"ℹ️ Te quedan {remaining} consulta{'s' if remaining > 1 else ''} hoy.",
+                reply_to_message_id=update.message.message_id
+            )
         
         # Send typing indicator
         await update.message.chat.send_action("typing")
@@ -517,6 +627,7 @@ Escríbeme o **envíame un audio** 🎤 explicando tu situación:
         # Add handlers
         self.application.add_handler(CommandHandler("start", self.start_command))
         self.application.add_handler(CommandHandler("help", self.help_command))
+        self.application.add_handler(CommandHandler("stats", self.stats_command))
         self.application.add_handler(CommandHandler("voz", self.voz_command))
         
         # Document generation conversation handler
