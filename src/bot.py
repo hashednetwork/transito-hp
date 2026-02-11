@@ -363,6 +363,18 @@ Escríbeme o **envíame un audio** 🎤 explicando tu situación:
                 "Lo siento, hubo un error. Por favor intenta de nuevo."
             )
     
+    async def derecho_peticion_trigger(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Trigger /documento for 'derecho de peticion' queries."""
+        await update.message.reply_text(
+            "Para crear un **Derecho de Petición**, usa el comando **/documento** 📄\n\n"
+            "Te guiaré paso a paso para generar tu PDF personalizado:\n"
+            "• Selecciona tipo (prescripción, fotomulta, etc.)\n"
+            "• Ingresa tus datos\n"
+            "• Descarga PDF listo para radicar\n\n"
+            "¡Empieza con /documento ahora!",
+            parse_mode='Markdown'
+        )
+    
     async def handle_message(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle incoming text messages."""
         user_query = update.message.text
@@ -654,6 +666,7 @@ Escríbeme o **envíame un audio** 🎤 explicando tu situación:
         )
         self.application.add_handler(doc_conv_handler)
         
+        self.application.add_handler(MessageHandler(filters.Regex(r'(?i)(derecho.*peticion|crear.*(derecho.*peticion|documento)|peticion.*derecho)'), self.derecho_peticion_trigger))
         self.application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, self.handle_message))
         self.application.add_handler(MessageHandler(filters.VOICE, self.handle_voice))
         
