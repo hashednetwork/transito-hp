@@ -77,11 +77,40 @@ LEY 2486 DE 2025 - VEHÍCULOS ELÉCTRICOS DE MOVILIDAD PERSONAL
 - Obligaciones de seguridad (casco, luces, etc.)
 - Infraestructura permitida para circulación
 
-MANUAL DE SEÑALIZACIÓN VIAL 2024
-- Adoptado mediante Resolución 20243040045005 de 2024
+MANUAL DE SEÑALIZACIÓN VIAL 2024 (ANEXO 76)
+- Adoptado mediante Resolución 20243040045005 de 2024-09-17
 - Actualiza parámetros técnicos de señalización
 - Nuevas señales para movilidad sostenible
 - Requisitos para señalización de sistemas de fotodetección
+- Fe de erratas: Resolución 20253040002075 de 2025-01-14
+- IMPORTANTE: Mantener versión 2015 (Res. 1885) para contratos/auditorías antiguas
+
+LEY 2251 DE 2022 - "LEY JULIÁN ESTEBAN" (VELOCIDAD)
+- Ajusta política de seguridad vial con enfoque Sistema Seguro
+- MODIFICA Arts. 106 y 107 del Código de Tránsito (velocidad)
+- Exige instrumentos de gestión de velocidad
+- Nuevos límites de velocidad en zonas urbanas
+- Vinculada con resoluciones de metodología de 2023
+
+DECRETO 1430 DE 2022 - PLAN NACIONAL DE SEGURIDAD VIAL 2022-2031
+- Marco de política pública con enfoque "Sistema Seguro"
+- Base para instrumentos territoriales y PESV
+- Norma de política (objetivos/acciones)
+
+RESOLUCIÓN 20233040025995 DE 2023 - METODOLOGÍA DE VELOCIDAD
+- Metodología para establecer velocidad límite en vías colombianas
+- Clave para entidades territoriales y estudios técnicos
+- Referencia para control de velocidad
+
+RESOLUCIÓN 20233040025895 DE 2023 - PLANES DE GESTIÓN DE VELOCIDAD
+- Implementación de Planes de Gestión de la Velocidad
+- Para territorios obligados por Ley 2251
+- Instrumento de política/gestión territorial
+
+RESOLUCIÓN 20203040023385 DE 2020 - CONDICIONES DEL CASCO
+- Condiciones mínimas de uso del casco para motos
+- Referencia para comparendos e inmovilización
+- Cruzar con Arts. 94 y 131 del Código
 
 ================================================================================
 JURISPRUDENCIA CONSTITUCIONAL FUNDAMENTAL

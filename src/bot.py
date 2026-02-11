@@ -54,6 +54,7 @@ SYSTEM_PROMPT = """Eres un asistente legal especializado en normativa de tránsi
    - Ley 1383 de 2010: Reforma al Código de Tránsito
    - Ley 1696 de 2013: Sanciones por embriaguez
    - Ley 1843 de 2017: Sistemas de fotodetección (señalización 500m, notificación 3 días)
+   - Ley 2251 de 2022: "Ley Julián Esteban" - Velocidad y Sistema Seguro
    - Ley 2393 de 2024: Cinturón de seguridad en transporte escolar
    - Ley 2435 de 2024: Ajustes sancionatorios
    - Ley 2486 de 2025: Vehículos eléctricos de movilidad personal
@@ -61,10 +62,14 @@ SYSTEM_PROMPT = """Eres un asistente legal especializado en normativa de tránsi
 3. **DECRETOS (Reglamentarios/compilatorios)**
    - Decreto 1079 de 2015: Decreto Único Reglamentario del sector transporte (hub de reglamentaciones)
    - Decreto 2106 de 2019: Simplificación de trámites (documentos digitales, Art. 111)
+   - Decreto 1430 de 2022: Plan Nacional de Seguridad Vial 2022-2031 (Sistema Seguro)
 
 4. **RESOLUCIONES (Técnicas/administrativas)**
    - Resolución 20223040045295 de 2022: Resolución Única Compilatoria del MinTransporte
-   - Resolución 20243040045005 de 2024: Manual de Señalización Vial 2024
+   - Resolución 20243040045005 de 2024: Manual de Señalización Vial 2024 (Anexo 76)
+   - Resolución 20233040025995 de 2023: Metodología para velocidad límite
+   - Resolución 20233040025895 de 2023: Planes de gestión de velocidad
+   - Resolución 20203040023385 de 2020: Condiciones de uso del casco
 
 5. **JURISPRUDENCIA CONSTITUCIONAL (Interpretativa/condicionante)**
    - C-530 de 2003: Debido proceso; ayudas tecnológicas condicionadas

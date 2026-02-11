@@ -308,14 +308,248 @@ LEY 2486 DE 2025 - VEHÍCULOS ELÉCTRICOS DE MOVILIDAD PERSONAL:
 - Infraestructura permitida (ciclorrutas, andenes según el caso)
 
 ================================================================================
-10. OTRAS RESOLUCIONES RELEVANTES
+10. RESOLUCIÓN 20243040045005 DE 2024 - MANUAL DE SEÑALIZACIÓN 2024
+================================================================================
+
+Tipo: Resolución técnica
+Número/Fecha: 20243040045005 / 2024-09-17
+Autoridad emisora: Ministerio de Transporte
+
+RESUMEN:
+Adopta el Manual de Señalización Vial 2024 (Anexo 76) dentro de la Resolución Única.
+Actualiza dispositivos uniformes y criterios con enfoque de seguridad vial.
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Vigente; requiere controlar transición/entrada en vigencia y Fe de erratas.
+Evidencia de aplicación/uso en 2026 aparece en actos posteriores.
+
+Fuentes de consulta:
+- PDF Resolución: Ministerio de Transporte
+
+================================================================================
+11. MANUAL DE SEÑALIZACIÓN VIAL DE COLOMBIA 2024 (ANEXO 76)
+================================================================================
+
+Tipo: Manual técnico adoptado
+Fecha: 2024 (asociado a Res. 20243040045005)
+Autoridad emisora: MinTransporte (con soporte ANSV)
+
+RESUMEN:
+Establece dispositivos uniformes en infraestructura vial para regular tránsito y seguridad vial.
+Referencia técnica OBLIGATORIA por adopción normativa.
+
+Contenido principal:
+- Señales verticales (reglamentarias, preventivas, informativas)
+- Señales horizontales (demarcación vial)
+- Señales transitorias (obras y trabajos)
+- Dispositivos para cicloinfraestructura
+- Señalización de sistemas de fotodetección
+- Nuevas señales para movilidad sostenible
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Versión vigente.
+IMPORTANTE: Mantener versión anterior (2015) por:
+- Transición normativa
+- Auditorías y contratos antiguos
+Existe fe de erratas/corrección posterior.
+
+Fuentes de consulta:
+- PDF Manual: Ministerio de Transporte
+
+================================================================================
+12. FE DE ERRATAS AL MANUAL DE SEÑALIZACIÓN 2024
+================================================================================
+
+Tipo: Acto correctivo
+Número/Fecha: 20253040002075 / 2025-01-14
+Autoridad emisora: MinTransporte
+
+RESUMEN:
+Documento de corrección ("fe de erratas") asociado a la adopción del manual.
+Útil para resolver contradicciones en señalización y codificación.
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Vigente como correctivo.
+En RAG: Se debe "encadenar" al documento base (relación CORRIGE_A).
+
+Fuentes de consulta:
+- PDF: Ministerio de Transporte
+
+================================================================================
+13. RESOLUCIÓN 1885 DE 2015 - MANUAL DE SEÑALIZACIÓN 2015
+================================================================================
+
+Tipo: Resolución técnica (histórica)
+Número/Fecha: 1885 / 2015-06-17
+Autoridad emisora: MinTransporte
+
+RESUMEN:
+Adopta manual previo de señalización (2015).
+Antecedente necesario para:
+- Interpretación histórica
+- Contratos celebrados bajo este manual
+- Comparendos antiguos
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+En la práctica, REEMPLAZADA por el Manual 2024.
+Mantener como "histórica" y versionar por fecha para consultas retroactivas.
+
+Fuentes de consulta:
+- PDF: Ministerio de Transporte
+
+================================================================================
+14. DECRETO 1430 DE 2022 - PLAN NACIONAL DE SEGURIDAD VIAL 2022-2031
+================================================================================
+
+Tipo: Decreto
+Número/Fecha: 1430 / 2022-07-29
+Autoridad emisora: Presidencia / MinTransporte
+
+RESUMEN:
+Aprueba el PNSV 2022-2031 y su Anexo.
+Marco de política pública con enfoque de "SISTEMA SEGURO".
+Base para:
+- Instrumentos territoriales
+- Programas sectoriales
+- PESV (Planes Estratégicos de Seguridad Vial)
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Vigente.
+Para RAG es "norma de política" (objetivos/acciones) más que regla sancionatoria.
+
+Fuentes de consulta:
+- PDF Decreto: DAPRE
+- PDF Anexo PNSV
+
+================================================================================
+15. LEY 2251 DE 2022 - "LEY JULIÁN ESTEBAN"
+================================================================================
+
+Tipo: Ley
+Número/Fecha: 2251 / 2022-07-14
+Autoridad emisora: Congreso de la República
+
+RESUMEN:
+Ajusta política de seguridad vial con enfoque Sistema Seguro.
+MODIFICA REGLAS DE VELOCIDAD (Arts. 106 y 107 del Código de Tránsito).
+Exige instrumentos de gestión de velocidad.
+
+Cambios importantes:
+- Nuevos límites de velocidad en zonas urbanas
+- Obligatoriedad de estudios técnicos de velocidad
+- Planes de gestión de velocidad para municipios
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Vigente.
+Se articula con resoluciones 2023 de metodología y planes de velocidad.
+
+Fuentes de consulta:
+- Consulta/descarga: Función Pública
+
+================================================================================
+16. RESOLUCIÓN 20233040025995 DE 2023 - METODOLOGÍA DE VELOCIDAD
+================================================================================
+
+Tipo: Resolución técnica
+Número/Fecha: 20233040025995 / 2023-06-22
+Autoridad emisora: MinTransporte (con soporte ANSV)
+
+RESUMEN:
+Adopta METODOLOGÍA para establecer velocidad límite en vías colombianas.
+Clave para:
+- Entidades territoriales
+- PMT (Planes de Manejo de Tráfico)
+- Estudios técnicos
+- Control de velocidad
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Vigente.
+Se usa como referencia en documentos técnicos posteriores y control.
+
+Fuentes de consulta:
+- PDF: Ministerio de Transporte
+
+================================================================================
+17. RESOLUCIÓN 20233040025895 DE 2023 - PLANES DE GESTIÓN DE VELOCIDAD
+================================================================================
+
+Tipo: Resolución técnica
+Número/Fecha: 20233040025895 / 2023-06-22
+Autoridad emisora: MinTransporte (con soporte ANSV)
+
+RESUMEN:
+Reglamenta implementación de Planes de Gestión de la Velocidad para territorios obligados.
+Incluye guías y anexos técnicos.
+Instrumento de política/gestión territorial.
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Vigente.
+Debe vincularse al:
+- PNSV (Decreto 1430 de 2022)
+- Ley 2251 de 2022 (Ley Julián Esteban)
+
+Fuentes de consulta:
+- PDF: Ministerio de Transporte
+
+================================================================================
+18. RESOLUCIÓN 20203040023385 DE 2020 - CONDICIONES DE USO DEL CASCO
+================================================================================
+
+Tipo: Resolución técnica
+Número/Fecha: 20203040023385 / 2020-11-20
+Autoridad emisora: MinTransporte
+
+RESUMEN:
+Define CONDICIONES MÍNIMAS DE USO DEL CASCO para:
+- Motocicletas
+- Motocarros
+- Bicicletas (cuando aplique)
+- Vehículos similares
+
+Referencia operativa para:
+- Comparendos por no uso de casco
+- Inmovilización de vehículos asociada
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Vigente.
+Debe cruzarse con artículos relevantes del Código:
+- Art. 94 (equipos de seguridad para motos)
+- Art. 131 (multas por no uso de casco)
+
+Fuentes de consulta:
+- PDF: Rama Judicial – SIDN/Diario Oficial
+
+================================================================================
+19. OTRAS RESOLUCIONES RELEVANTES
 ================================================================================
 
 RESOLUCIONES DE METODOLOGÍA:
-- Metodología de velocidad
-- PESV (Planes Estratégicos de Seguridad Vial)
-- SAST (Sistema de Alertas sobre Seguridad en el Tránsito)
-- Especificaciones de cascos
+- Resolución 20233040025995/2023: Metodología de velocidad límite
+- Resolución 20233040025895/2023: Planes de gestión de velocidad
+- PESV: Planes Estratégicos de Seguridad Vial (reglamentados)
+- SAST: Sistema de Alertas sobre Seguridad en el Tránsito
+
+RESOLUCIONES DE EQUIPOS Y SEGURIDAD:
+- Resolución 20203040023385/2020: Condiciones de uso del casco
+- Especificaciones de equipos de protección
 
 CIRCULARES CONJUNTAS:
 - Supertransporte: circulares de supervisión

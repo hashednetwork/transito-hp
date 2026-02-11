@@ -103,11 +103,50 @@ SOURCE_METADATA = {
         "official_source": "Ministerio de Transporte"
     },
     "manual_senalizacion": {
-        "name": "Manual de Señalización Vial de Colombia 2024",
+        "name": "Manual de Señalización Vial de Colombia 2024 (Anexo 76)",
         "type": "manual",
         "priority": 2,
         "year": 2024,
-        "official_source": "Ministerio de Transporte"
+        "official_source": "Ministerio de Transporte",
+        "nota": "Adoptado por Res. 20243040045005. Fe de erratas: Res. 20253040002075"
+    },
+    "manual_senalizacion_2015": {
+        "name": "Manual de Señalización Vial 2015 (histórico)",
+        "type": "manual",
+        "priority": 3,
+        "year": 2015,
+        "official_source": "Ministerio de Transporte",
+        "nota": "Reemplazado por Manual 2024. Mantener para consultas retroactivas."
+    },
+    "ley_2251": {
+        "name": "Ley 2251 de 2022 (Ley Julián Esteban - Velocidad)",
+        "type": "ley",
+        "priority": 1,
+        "year": 2022,
+        "official_source": "Función Pública",
+        "nota": "Modifica Arts. 106-107 Código de Tránsito (velocidad)"
+    },
+    "pnsv_2022": {
+        "name": "Decreto 1430 de 2022 (Plan Nacional de Seguridad Vial 2022-2031)",
+        "type": "decreto",
+        "priority": 2,
+        "year": 2022,
+        "official_source": "DAPRE / MinTransporte",
+        "nota": "Marco de política Sistema Seguro"
+    },
+    "resolucion_velocidad": {
+        "name": "Resolución 20233040025995 de 2023 (Metodología Velocidad)",
+        "type": "resolucion",
+        "priority": 2,
+        "year": 2023,
+        "official_source": "MinTransporte / ANSV"
+    },
+    "resolucion_cascos": {
+        "name": "Resolución 20203040023385 de 2020 (Condiciones Uso Casco)",
+        "type": "resolucion",
+        "priority": 2,
+        "year": 2020,
+        "official_source": "MinTransporte"
     },
     "constitucion": {
         "name": "Constitución Política de Colombia 1991",
