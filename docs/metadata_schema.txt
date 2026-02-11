@@ -1,0 +1,402 @@
+ESQUEMA DE METADATOS PARA BASE DOCUMENTAL RAG
+==============================================
+TransitoColBot - Especificación técnica para ingesta y versionado
+Versión: 1.0 | Fecha: 2025-02
+
+================================================================================
+NOTAS CRÍTICAS SOBRE AMBIGÜEDADES Y VERSIONES
+================================================================================
+
+PROBLEMA DE DIVERGENCIAS ENTRE TEXTOS CONSOLIDADOS:
+- Portales oficiales pueden incluir notas de modificación
+- Simultáneamente advierten que su publicación es INFORMATIVA
+- NO garantizan vigencia actualizada
+
+OBLIGACIÓN PARA EL RAG:
+El sistema debe registrar:
+1. Fuente primaria (URL, portal)
+2. Fecha de captura/descarga
+3. Cadena normativa (modifica/deroga/condiciona)
+
+CASO TÍPICO - TRANSICIÓN DE MANUALES TÉCNICOS:
+La adopción del Manual de Señalización 2024 es formal (resolución),
+pero su implementación tiene fechas y regímenes distintos.
+
+Para estos casos, indexar:
+(a) Fecha de expedición de la resolución
+(b) Fecha de publicación/implementación efectiva
+(c) Régimen transitorio (si aplica)
+(d) Fe de erratas (vinculada al documento base)
+
+================================================================================
+ESTRUCTURA DE ALMACENAMIENTO RECOMENDADA
+================================================================================
+
+JERARQUÍA DE UNIDADES:
+
+Documento
+└── Estructura interna
+    ├── Títulos
+    ├── Capítulos
+    ├── Artículos
+    └── Anexos
+        └── Chunks (fragmentos para embedding)
+
+Esta estructura permite:
+- Trazabilidad completa
+- Control de vigencia por artículo
+- Relaciones normativas
+- Versionado granular
+
+================================================================================
+CAMPOS MÍNIMOS PARA METADATOS RAG JURÍDICO-NORMATIVO
+================================================================================
+
+1. IDENTIFICACIÓN Y CLASIFICACIÓN
+---------------------------------
+
+doc_id: string (UUID)
+    Identificador único del documento
+    Ejemplo: "550e8400-e29b-41d4-a716-446655440000"
+
+tipo_norma: enum
+    Valores permitidos:
+    - constitucion
+    - ley
+    - decreto
+    - decreto_ley
+    - resolucion
+    - circular
+    - manual
+    - sentencia
+    - concepto
+    - norma_tecnica
+
+numero: string
+    Número del documento (permite alfanuméricos)
+    Ejemplo: "769", "20223040045295", "C-038"
+
+fecha_expedicion: ISO-8601
+    Fecha de expedición del documento
+    Formato: YYYY-MM-DD
+    Ejemplo: "2020-02-05"
+
+fecha_publicacion: ISO-8601 (opcional)
+    Fecha de publicación en Diario Oficial (si aplica)
+    Formato: YYYY-MM-DD
+
+autoridad_emisora: string (normalizado)
+    Autoridad que expide el documento
+    Valores comunes:
+    - "Congreso de la República"
+    - "Presidencia de la República"
+    - "Ministerio de Transporte"
+    - "Corte Constitucional"
+    - "Consejo de Estado"
+    - "Superintendencia de Transporte"
+
+jerarquia: integer (ordinal)
+    Nivel en la jerarquía normativa
+    1 = Constitución (máxima)
+    2 = Ley / Código
+    3 = Decreto / Decreto-ley
+    4 = Resolución
+    5 = Circular
+    6 = Manual / Anexo
+    7 = Guía / Doctrina
+
+alcance_territorial: enum
+    - nacional
+    - departamental
+    - distrital
+    - municipal
+    - mixto
+
+temas: array[string]
+    Lista controlada de temas
+    Valores permitidos:
+    - comparendos
+    - fotodeteccion
+    - velocidad
+    - senalizacion
+    - motos
+    - soat
+    - pesv (Planes Estratégicos de Seguridad Vial)
+    - runt
+    - licencias
+    - revision_tecnicomecanica
+    - embriaguez
+    - vehiculos_electricos
+    - transporte_escolar
+    - debido_proceso
+    - notificacion
+    - prescripcion
+    - multas
+    - cascos
+
+2. VIGENCIA Y ESTADO
+--------------------
+
+estado_vigencia: enum
+    - vigente
+    - vigente_con_modificaciones
+    - derogado
+    - suspendido
+    - condicionado (por sentencia)
+
+fecha_vigencia_desde: ISO-8601
+    Fecha desde la cual está vigente
+
+fecha_vigencia_hasta: ISO-8601 (opcional)
+    Fecha hasta la cual estuvo vigente (si derogado)
+
+notas_vigencia: string
+    Observaciones sobre la vigencia
+    Ejemplo: "Condicionado por Sentencia C-038 de 2020"
+
+3. RELACIONES NORMATIVAS
+------------------------
+
+modifica: array[doc_id]
+    Documentos que este documento modifica
+    Ejemplo: ["ley_769_2002"]
+
+modificado_por: array[doc_id]
+    Documentos que han modificado este
+    Ejemplo: ["ley_1383_2010", "ley_2251_2022"]
+
+deroga: array[doc_id]
+    Documentos que este documento deroga
+
+derogado_por: doc_id (opcional)
+    Documento que derogó este
+
+reglamenta: array[doc_id]
+    Documentos que este reglamenta (para decretos)
+
+reglamentado_por: array[doc_id]
+    Decretos que reglamentan este documento
+
+condiciona: array[doc_id]
+    Sentencias que condicionan este documento
+
+fe_erratas: doc_id (opcional)
+    Documento de fe de erratas vinculado
+
+reemplaza: doc_id (opcional)
+    Documento que este reemplaza
+
+reemplazado_por: doc_id (opcional)
+    Documento que reemplazó a este
+
+4. CONTROL DE ARCHIVOS
+----------------------
+
+url_fuente: string (URL)
+    URL de descarga del documento
+
+formato_archivo: enum
+    - pdf
+    - html
+    - docx
+    - txt
+
+hash_md5: string
+    Hash MD5 del archivo descargado
+    Para verificación de integridad
+
+hash_sha256: string (opcional)
+    Hash SHA256 para mayor seguridad
+
+tamaño_bytes: integer
+    Tamaño del archivo en bytes
+
+fecha_descarga: ISO-8601
+    Fecha en que se descargó el documento
+
+fecha_ultima_verificacion: ISO-8601
+    Última vez que se verificó vigencia
+
+fuente_portal: string
+    Portal de origen
+    Valores: "funcionpublica", "senado", "mintransporte", "dapre", "corte", "sidn"
+
+5. METADATOS DE CHUNK (para fragmentos)
+---------------------------------------
+
+chunk_id: string (UUID)
+    Identificador único del chunk
+
+doc_id: string (UUID - FK)
+    Referencia al documento padre
+
+chunk_index: integer
+    Posición del chunk en el documento
+
+articulo: string (opcional)
+    Número de artículo si aplica
+    Ejemplo: "131", "131A"
+
+titulo: string (opcional)
+    Título del documento donde está el chunk
+
+capitulo: string (opcional)
+    Capítulo donde está el chunk
+
+seccion: string (opcional)
+    Sección o tema del chunk
+
+texto_hash: string
+    Hash del texto del chunk (para deduplicación)
+
+embedding_model: string
+    Modelo usado para embedding
+    Ejemplo: "text-embedding-3-small"
+
+fecha_indexacion: ISO-8601
+    Fecha en que se indexó el chunk
+
+================================================================================
+JURISPRUDENCIA - CAMPOS ESPECÍFICOS
+================================================================================
+
+Para sentencias y conceptos, agregar:
+
+tipo_decision: enum
+    - sentencia_constitucionalidad (C-)
+    - sentencia_tutela (T-, SU-)
+    - sentencia_unificacion
+    - concepto_sala_consulta
+    - auto
+
+magistrado_ponente: string
+    Nombre del magistrado ponente
+
+demandante: string (opcional)
+    Para sentencias de constitucionalidad
+
+norma_demandada: string
+    Norma objeto de la demanda
+
+decision: enum
+    - exequible
+    - inexequible
+    - exequible_condicionado
+    - inexequible_parcial
+    - inhibitorio
+
+efectos: array[string]
+    - erga_omnes (efectos generales)
+    - inter_partes (entre partes)
+    - retroactivo
+    - diferido
+
+ratio_decidendi: string
+    Resumen de la razón de la decisión
+
+precedente_clave: boolean
+    Si es un precedente fundamental
+
+================================================================================
+EJEMPLO DE REGISTRO COMPLETO
+================================================================================
+
+{
+  "doc_id": "c038-2020-corte",
+  "tipo_norma": "sentencia",
+  "numero": "C-038",
+  "fecha_expedicion": "2020-02-05",
+  "autoridad_emisora": "Corte Constitucional",
+  "jerarquia": 2,
+  "alcance_territorial": "nacional",
+  "temas": ["fotodeteccion", "debido_proceso", "multas"],
+  "estado_vigencia": "vigente",
+  "tipo_decision": "sentencia_constitucionalidad",
+  "decision": "inexequible_parcial",
+  "norma_demandada": "Parágrafo 1 Art. 8 Ley 1843 de 2017",
+  "ratio_decidendi": "La responsabilidad solidaria del propietario en fotomultas vulnera el principio de responsabilidad personal en materia sancionatoria",
+  "efectos": ["erga_omnes"],
+  "precedente_clave": true,
+  "condiciona": ["ley_1843_2017"],
+  "url_fuente": "https://www.corteconstitucional.gov.co/relatoria/2020/c-038-20.htm",
+  "formato_archivo": "html",
+  "fecha_descarga": "2025-02-11",
+  "fuente_portal": "corte"
+}
+
+================================================================================
+MANEJO DE AMBIGÜEDADES
+================================================================================
+
+ESTRATEGIAS PARA CONFLICTOS DE VERSIÓN:
+
+1. PREFERENCIA POR FUENTE PRIMARIA
+   Orden de preferencia:
+   - Diario Oficial / SIDN
+   - Portal de la autoridad emisora
+   - Función Pública (consolidado)
+   - Senado (leyes)
+
+2. REGISTRO DE DIVERGENCIAS
+   Si hay diferencias entre fuentes:
+   - Registrar todas las versiones con metadatos
+   - Marcar la "versión preferida" para RAG
+   - Incluir nota explicativa
+
+3. FECHA DE CORTE
+   Para cada consulta RAG, considerar:
+   - Fecha del hecho (para multas antiguas)
+   - Fecha actual (para normativa vigente)
+
+4. ADVERTENCIAS AL USUARIO
+   Cuando hay ambigüedad:
+   - Indicar que existen versiones diferentes
+   - Recomendar verificación en fuente oficial
+   - Citar fecha de captura del documento
+
+================================================================================
+JURISPRUDENCIA CONSTITUCIONAL PRIORITARIA
+================================================================================
+
+ALTO IMPACTO CIUDADANO (indexar completo):
+
+C-530 DE 2003:
+- Tema: Comparendo, debido proceso, ayudas tecnológicas
+- Criterio RAG: El comparendo no equivale a sanción; validez de ayudas
+  tecnológicas como prueba bajo condiciones; condicionamientos para
+  vincular propietario.
+- Efecto práctico: Afecta cómo responder sobre notificación, pruebas,
+  defensa y vinculación en procesos con tecnología.
+
+C-980 DE 2010:
+- Tema: Notificación por correo en proceso contravencional
+- Criterio RAG: Avala ciertos esquemas de notificación por correo y
+  analiza debido proceso/igualdad.
+- Efecto práctico: Útil para preguntas sobre "¿me notificaron bien?"
+  y plazos/validez procedimental.
+
+C-038 DE 2020:
+- Tema: Fotodetección y responsabilidad solidaria
+- Criterio RAG: Declara inexequible la solidaridad propietario–conductor
+  en fotomultas, reforzando responsabilidad personal.
+- Efecto práctico: Cambia respuestas sobre "¿debo pagar como propietario
+  si no conducía?"
+
+C-321 DE 2022:
+- Tema: Procedimiento administrativo contravencional (Ley 769)
+- Criterio RAG: Reitera límites a la potestad sancionadora; análisis del
+  proceso administrativo contravencional (arts. 135–142 Ley 769).
+- Efecto práctico: Útil para guiar respuestas sobre etapas, garantías
+  y alcance del procedimiento.
+
+DOCTRINA CONSEJO DE ESTADO (Sala de Consulta):
+- Tema: Fotodetección - participación de privados
+- Criterios desarrollados:
+  * Límites de remuneración a operadores
+  * Destinación de recursos de multas
+  * Necesidad de vinculación y defensa del propietario
+  * Articulación con C-038 de 2020
+
+================================================================================
+FIN DEL ESQUEMA DE METADATOS
+================================================================================
