@@ -1,0 +1,361 @@
+BANCO DE PREGUNTAS FRECUENTES (FAQ) - GOLDEN SET
+=================================================
+TransitoColBot - Pruebas de validación del RAG
+Versión: 1.0 | Fecha: 2025-02
+
+================================================================================
+NOTA SOBRE PRUEBAS
+================================================================================
+
+Un RAG de tránsito suele fallar por:
+(a) Confundir "comparendo" con "multa/sanción"
+(b) No distinguir vigencia y cambios por año
+(c) Ignorar condicionamientos de la Corte Constitucional
+(d) No integrar manuales/metodologías
+
+Estas FAQs se recomiendan como pruebas (golden set) para validación.
+
+================================================================================
+FAQ 1: FUNDAMENTO CONSTITUCIONAL
+================================================================================
+
+PREGUNTA:
+¿Cuál es el fundamento constitucional del derecho a movilizarse y por qué puede limitarse?
+
+RESPUESTA ESPERADA:
+- Artículo 24 de la Constitución Política de Colombia
+- "Todo colombiano tiene derecho a circular libremente por el territorio nacional"
+- La limitación se establece "con las limitaciones que establezca la ley"
+- Fundamento de la intervención estatal en tránsito (velocidad, sanciones, controles)
+
+TEMAS: [constitucion, debido_proceso]
+DIFICULTAD: basica
+
+================================================================================
+FAQ 2: COMPARENDO VS MULTA
+================================================================================
+
+PREGUNTA:
+¿Qué es un comparendo y en qué se diferencia de la sanción/multa?
+
+RESPUESTA ESPERADA:
+- COMPARENDO: Es una CITACIÓN por presunta infracción
+  * Incluye detalles (lugar, hora, motivo)
+  * Fecha para presentar versión (oral o escrita)
+  * El ciudadano tiene oportunidad de defensa ANTES de la sanción
+  
+- MULTA: Es la SANCIÓN PECUNIARIA
+  * Se impone después del proceso
+  * No hay oportunidad de defensa previa
+  
+- Importante: El comparendo NO es prueba plena (Sentencia C-530 de 2003)
+- El debido proceso exige oportunidad de controvertir
+
+TEMAS: [comparendos, multas, debido_proceso]
+DIFICULTAD: basica
+
+================================================================================
+FAQ 3: NOTIFICACIÓN DE FOTOMULTA
+================================================================================
+
+PREGUNTA:
+¿Cómo deben notificarme un comparendo detectado por medios tecnológicos?
+
+RESPUESTA ESPERADA:
+- Plazo: 3 DÍAS HÁBILES desde la fecha de la infracción (Art. 8 Ley 1843/2017)
+- La notificación tardía vulnera el debido proceso
+- Debe contener: fecha, hora, lugar, infracción, evidencia fotográfica
+- Medio: correo certificado al domicilio registrado
+- Si no se notifica en plazo → puede impugnarse por nulidad
+- Referencia: Sentencia C-980 de 2010 (notificación efectiva)
+
+TEMAS: [fotodeteccion, notificacion, debido_proceso]
+DIFICULTAD: intermedia
+
+================================================================================
+FAQ 4: RESPONSABILIDAD EN FOTOMULTAS
+================================================================================
+
+PREGUNTA:
+¿Pueden cobrar una fotomulta al propietario si él no conducía? ¿Qué cambió con C-038/2020?
+
+RESPUESTA ESPERADA:
+1. La responsabilidad en materia sancionatoria es PERSONAL
+2. La Corte Constitucional en Sentencia C-038 de 2020:
+   - Declaró INEXEQUIBLE la responsabilidad solidaria del propietario
+   - El propietario NO responde automáticamente por el hecho del conductor
+3. Sin embargo:
+   - El propietario puede tener deberes de vinculación/notificación
+   - Debe aportar pruebas si alega que no conducía
+4. Recomendación: Revisar acto y procedimiento del organismo de tránsito
+
+TEMAS: [fotodeteccion, multas, debido_proceso]
+DIFICULTAD: intermedia
+
+================================================================================
+FAQ 5: REQUISITOS TÉCNICOS SAST
+================================================================================
+
+PREGUNTA:
+¿Qué requisitos técnicos deben cumplir los sistemas automáticos/semiautomáticos (SAST) para ser válidos?
+
+RESPUESTA ESPERADA:
+1. Marco legal: Ley 1843 de 2017 (modificada por Decreto-ley 2106/2019)
+2. Criterios técnicos: Resolución 20203040011245 de 2020
+3. Requisitos clave:
+   - Estudio técnico de seguridad vial
+   - Señalización al menos 500 metros antes
+   - Cámaras autorizadas por ANSV
+   - Evidencia y cadena de custodia
+   - Notificación en 3 días hábiles
+4. Lineamientos de supervisión: Circulares Supertransporte
+5. Si no cumplen requisitos → fotomulta puede ser anulada
+
+TEMAS: [fotodeteccion, senalizacion]
+DIFICULTAD: avanzada
+
+================================================================================
+FAQ 6: USO DEL CASCO
+================================================================================
+
+PREGUNTA:
+¿Qué casco es obligatorio y cuáles son las condiciones mínimas?
+
+RESPUESTA ESPERADA:
+1. Norma: Resolución 20203040023385 de 2020 (condiciones mínimas)
+2. Aplica a:
+   - Conductores de motocicleta
+   - Acompañantes de motocicleta
+   - Motocarros
+3. Incumplimiento:
+   - Sanción según régimen de tránsito (Art. 131 Ley 769)
+   - Puede llevar a inmovilización del vehículo
+4. Cruzar con: Arts. 94 y 96 del Código de Tránsito
+
+TEMAS: [motos, cascos]
+DIFICULTAD: basica
+
+================================================================================
+FAQ 7: LÍMITES DE VELOCIDAD
+================================================================================
+
+PREGUNTA:
+¿Cuáles son los límites de velocidad en zonas urbanas/escolares/carreteras y cómo se establecen técnicamente?
+
+RESPUESTA ESPERADA:
+1. Ley 2251 de 2022 ("Ley Julián Esteban"):
+   - Ajusta política con enfoque Sistema Seguro
+   - Modifica Arts. 106 y 107 del Código de Tránsito
+2. Metodología: Resolución 20233040025995 de 2023
+   - Para establecer velocidad límite en vías colombianas
+3. Planes de gestión: Resolución 20233040025895 de 2023
+   - Territorios obligados deben implementar planes
+4. Vinculación con PNSV 2022-2031 (Decreto 1430/2022)
+5. Límites generales:
+   - Zonas urbanas: según señalización y estudio técnico
+   - Zonas escolares: velocidad reducida (típicamente 30 km/h)
+   - Carreteras: según tipo de vía y estudio
+
+TEMAS: [velocidad, senalizacion]
+DIFICULTAD: intermedia
+
+================================================================================
+FAQ 8: PESV
+================================================================================
+
+PREGUNTA:
+¿Qué es el PESV, quiénes deben implementarlo y cómo se verifica?
+
+RESPUESTA ESPERADA:
+1. PESV = Plan Estratégico de Seguridad Vial
+2. Metodología: Resolución 20223040040595 de 2022
+   - Deroga guía anterior (Res. 1565/2014)
+3. Obligados:
+   - Empresas de transporte
+   - Sector público con flota vehicular
+   - Sector privado que opera vehículos
+4. Verificación:
+   - Autoridades competentes
+   - Supertransporte para empresas de transporte
+5. Vinculación con PNSV (Decreto 1430/2022)
+
+TEMAS: [pesv]
+DIFICULTAD: avanzada
+
+================================================================================
+FAQ 9: MANUAL DE SEÑALIZACIÓN 2024
+================================================================================
+
+PREGUNTA:
+¿Qué cambió con el Manual de Señalización 2024 y desde cuándo se usa?
+
+RESPUESTA ESPERADA:
+1. Manual vigente: Adoptado por Resolución 20243040045005 de 2024
+   - Conocido como Anexo 76 de la Resolución Única
+2. Contenido:
+   - Dispositivos uniformes de señalización
+   - Enfoque de seguridad vial
+   - Nuevas señales para movilidad sostenible
+3. Fe de erratas: Resolución 20253040002075 de 2025-01-14
+   - Corrige contradicciones
+4. Régimen transitorio:
+   - Manual 2015 (Res. 1885/2015) puede aplicar a contratos antiguos
+   - Hoy se debe usar Manual 2024
+
+TEMAS: [senalizacion]
+DIFICULTAD: intermedia
+
+================================================================================
+FAQ 10: VEHÍCULOS ELÉCTRICOS DE MOVILIDAD PERSONAL
+================================================================================
+
+PREGUNTA:
+¿Qué reglas aplican a patinetas/vehículos eléctricos livianos de movilidad personal urbana?
+
+RESPUESTA ESPERADA:
+1. Ley 2486 de 2025:
+   - Regula circulación de vehículos eléctricos livianos
+   - Patinetas eléctricas, monopatines, segways, etc.
+2. Regulaciones:
+   - Requisitos de circulación en vías públicas
+   - Límites de velocidad específicos
+   - Obligaciones de seguridad (casco, luces)
+   - Infraestructura permitida (ciclorrutas, según el caso)
+3. Incentivos de movilidad incluidos
+
+TEMAS: [vehiculos_electricos]
+DIFICULTAD: basica
+
+================================================================================
+FAQ 11: TRANSPORTE ESCOLAR
+================================================================================
+
+PREGUNTA:
+Transporte escolar: ¿qué exige la Ley 2393 de 2024 sobre cinturón de tres puntos?
+
+RESPUESTA ESPERADA:
+1. Ley 2393 de 2024:
+   - Modifica el Código de Tránsito
+   - Obliga uso de cinturón de seguridad de TRES PUNTOS
+2. Aplica a:
+   - Transporte terrestre automotor especial para escolar
+   - Todos los vehículos destinados al transporte de estudiantes
+3. Plazo de implementación:
+   - Vehículos nuevos: inmediato
+   - Vehículos existentes: según régimen transitorio
+
+TEMAS: [transporte_escolar]
+DIFICULTAD: basica
+
+================================================================================
+EJEMPLOS DE PROMPTS Y RESPUESTAS ESPERADAS
+================================================================================
+
+EJEMPLO 1 - CIUDADANO, FOTODETECCIÓN
+------------------------------------
+
+PROMPT:
+"Me llegó una fotomulta pero yo no iba manejando. ¿Me pueden obligar a pagar por ser propietario?"
+
+ESTRUCTURA DE RESPUESTA ESPERADA:
+1. Explicar que en sancionatorio rige responsabilidad personal
+2. Citar que la Corte Constitucional declaró inexequible la responsabilidad 
+   solidaria en fotomultas (Sentencia C-038 de 2020)
+3. Explicar que el propietario puede tener deberes de vinculación/notificación 
+   y aportar pruebas
+4. Sugerir revisar acto y procedimiento específico del organismo de tránsito
+
+---
+
+EJEMPLO 2 - FUNCIONARIO, SAST
+-----------------------------
+
+PROMPT:
+"¿Qué requisitos técnicos debo verificar para autorizar/renovar un SAST y evitar nulidades?"
+
+ESTRUCTURA DE RESPUESTA ESPERADA:
+1. Remitir a la Ley 1843 y su modificación por Decreto-ley 2106
+2. Citar la Resolución 20203040011245 (criterios técnicos)
+3. Incorporar lineamientos de supervisión/circulares (si aplican)
+4. Checklist: estudio técnico, señalización, instalación, operación, 
+   evidencia y cadena de custodia, notificación y debido proceso
+
+---
+
+EJEMPLO 3 - TERRITORIO, VELOCIDAD
+---------------------------------
+
+PROMPT:
+"Somos un municipio categoría II con autoridad de tránsito: ¿cómo definimos la velocidad límite y qué plan debemos adoptar?"
+
+ESTRUCTURA DE RESPUESTA ESPERADA:
+1. Referir que Ley 2251 ajusta la política y obliga instrumentos
+2. Usar Resolución 20233040025995 para metodología de velocidad límite
+3. Usar Resolución 20233040025895 para Planes de Gestión de la Velocidad 
+   (si aplica por categoría/jurisdicción)
+4. Señalar necesidad de acto administrativo local y articulación con PNSV
+
+---
+
+EJEMPLO 4 - MOTOS, CASCO
+------------------------
+
+PROMPT:
+"¿Qué dice la norma sobre el casco y qué me pasa si no lo uso correctamente?"
+
+ESTRUCTURA DE RESPUESTA ESPERADA:
+1. Citar la resolución de condiciones mínimas (20203040023385) y su naturaleza
+2. Explicar que el incumplimiento conlleva sanciones previstas por el régimen 
+   de tránsito y puede llevar a inmovilización
+3. Remitir a autoridad competente/inspección
+
+---
+
+EJEMPLO 5 - SEÑALIZACIÓN
+------------------------
+
+PROMPT:
+"¿Cuál manual de señalización es vigente y cómo manejo una contradicción entre el manual y una señal instalada?"
+
+ESTRUCTURA DE RESPUESTA ESPERADA:
+1. Identificar que el manual vigente fue adoptado por Resolución 20243040045005 
+   (Manual 2024, Anexo 76) y que existe fe de erratas
+2. Indicar que para obras/contratos antiguos puede haberse aplicado el 
+   manual 2015, pero hoy se debe verificar régimen transitorio
+3. Recomendar documentar evidencia técnica y aplicar manual vigente, 
+   salvo disposición transitoria
+
+================================================================================
+CRITERIOS DE EVALUACIÓN
+================================================================================
+
+Para cada respuesta del RAG, evaluar:
+
+1. PRECISIÓN NORMATIVA
+   - ¿Cita la norma correcta?
+   - ¿El número y fecha son correctos?
+   - ¿Menciona modificaciones relevantes?
+
+2. VIGENCIA
+   - ¿Distingue entre vigente/derogado?
+   - ¿Considera cambios por jurisprudencia?
+   - ¿Maneja régimen transitorio?
+
+3. COHERENCIA JERÁRQUICA
+   - ¿Respeta jerarquía normativa?
+   - ¿Cita Constitución cuando aplica?
+   - ¿Integra jurisprudencia relevante?
+
+4. COMPLETITUD
+   - ¿Responde la pregunta completa?
+   - ¿Incluye pasos prácticos?
+   - ¿Sugiere consulta profesional si es complejo?
+
+5. CLARIDAD
+   - ¿Es comprensible para el ciudadano?
+   - ¿Evita jerga técnica innecesaria?
+   - ¿Estructura lógicamente la respuesta?
+
+================================================================================
+FIN DEL GOLDEN SET
+================================================================================

@@ -201,6 +201,20 @@ SOURCE_METADATA = {
         "year": 2025,
         "official_source": "Especificación técnica TransitoColBot"
     },
+    "ontologia_rag": {
+        "name": "Ontología y Modelo ER para RAG de Tránsito",
+        "type": "referencia",
+        "priority": 3,
+        "year": 2025,
+        "official_source": "Especificación técnica TransitoColBot"
+    },
+    "faq_golden_set": {
+        "name": "Banco de Preguntas Frecuentes (Golden Set)",
+        "type": "referencia",
+        "priority": 3,
+        "year": 2025,
+        "official_source": "Pruebas de validación TransitoColBot"
+    },
     "sentencia_c321": {
         "name": "Sentencia C-321 de 2022 (Procedimiento Contravencional)",
         "type": "jurisprudencia",
@@ -708,6 +722,8 @@ def get_default_documents_config(base_path: str = ".") -> List[Dict]:
         ("docs/inventario_documentos.txt", "inventario_documentos"),
         ("docs/enlaces_oficiales.txt", "enlaces_oficiales"),
         ("docs/metadata_schema.txt", "metadata_schema"),
+        ("docs/ontologia_rag.txt", "ontologia_rag"),
+        ("docs/faq_golden_set.txt", "faq_golden_set"),
         # Practical guides
         ("senorbiter_guias.txt", "senorbiter"),
     ]
