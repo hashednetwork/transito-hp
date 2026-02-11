@@ -148,6 +148,44 @@ SOURCE_METADATA = {
         "year": 2020,
         "official_source": "MinTransporte"
     },
+    "resolucion_sast": {
+        "name": "Resolución 20203040011245 de 2020 (Criterios Técnicos SAST/Fotodetección)",
+        "type": "resolucion",
+        "priority": 2,
+        "year": 2020,
+        "official_source": "MinTransporte",
+        "nota": "Clave para legalidad de fotodetección. Se articula con Ley 1843 y Decreto 2106."
+    },
+    "resolucion_pesv": {
+        "name": "Resolución 20223040040595 de 2022 (Metodología PESV)",
+        "type": "resolucion",
+        "priority": 2,
+        "year": 2022,
+        "official_source": "MinTransporte",
+        "nota": "Deroga Res. 1565/2014. Obligatoria para organizaciones con PESV."
+    },
+    "concepto_fotomultas": {
+        "name": "Concepto Sala de Consulta Rad. 2433 de 2020 (Fotomultas)",
+        "type": "jurisprudencia",
+        "priority": 2,
+        "year": 2020,
+        "official_source": "Consejo de Estado",
+        "nota": "Doctrina orientadora sobre participación privada en fotomultas."
+    },
+    "circular_plan365": {
+        "name": "Circular Conjunta 023 de 2025 (Plan 365)",
+        "type": "circular",
+        "priority": 3,
+        "year": 2025,
+        "official_source": "MinTransporte + ANSV + Supertransporte + DITRA"
+    },
+    "circular_sast": {
+        "name": "Circular Externa 20254000000867 (SAST y Control Señalización)",
+        "type": "circular",
+        "priority": 3,
+        "year": 2025,
+        "official_source": "Superintendencia de Transporte"
+    },
     "constitucion": {
         "name": "Constitución Política de Colombia 1991",
         "type": "constitucion",

@@ -538,28 +538,249 @@ Fuentes de consulta:
 - PDF: Rama Judicial – SIDN/Diario Oficial
 
 ================================================================================
-19. OTRAS RESOLUCIONES RELEVANTES
+19. RESOLUCIÓN 20203040011245 DE 2020 - CRITERIOS TÉCNICOS SAST/FOTODETECCIÓN
 ================================================================================
 
-RESOLUCIONES DE METODOLOGÍA:
-- Resolución 20233040025995/2023: Metodología de velocidad límite
-- Resolución 20233040025895/2023: Planes de gestión de velocidad
-- PESV: Planes Estratégicos de Seguridad Vial (reglamentados)
-- SAST: Sistema de Alertas sobre Seguridad en el Tránsito
+Tipo: Resolución técnica
+Número/Fecha: 20203040011245 / 2020-04-30
+Autoridad emisora: MinTransporte
 
-RESOLUCIONES DE EQUIPOS Y SEGURIDAD:
-- Resolución 20203040023385/2020: Condiciones de uso del casco
-- Especificaciones de equipos de protección
+RESUMEN:
+Establece CRITERIOS TÉCNICOS de seguridad vial para instalación y operación de:
+- SAST (Sistemas Automáticos y Semiautomáticos de Tránsito)
+- Otros medios tecnológicos de detección de infracciones
 
-CIRCULARES CONJUNTAS:
-- Supertransporte: circulares de supervisión
-- Operación de control y campañas
-- Criterios interpretativos
+CLAVE para determinar la LEGALIDAD de la fotodetección.
 
-NORMAS TÉCNICAS NTC:
-- Especificaciones de materiales
-- Requisitos de señales y demarcación
-- Nota: Requieren licencia para acceso al texto completo
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Vigente.
+Se articula con:
+- Ley 1843 de 2017 (marco legal de fotomultas)
+- Decreto-ley 2106 de 2019 (modifica criterios)
+
+Fuentes de consulta:
+- PDF: Ministerio de Transporte
+
+================================================================================
+20. RESOLUCIÓN 20223040040595 DE 2022 - METODOLOGÍA PESV
+================================================================================
+
+Tipo: Resolución técnica
+Número/Fecha: 20223040040595 / 2022-07-12
+Autoridad emisora: MinTransporte
+
+RESUMEN:
+Adopta METODOLOGÍA para diseño, implementación y verificación de:
+PESV - Planes Estratégicos de Seguridad Vial
+
+DEROGA la guía anterior (Resolución 1565 de 2014).
+
+Clave para:
+- Organizaciones obligadas (sector público y privado)
+- Autoridades verificadoras
+- Empresas de transporte
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Vigente.
+Obligatoria para todas las organizaciones que deban tener PESV.
+
+Fuentes de consulta:
+- PDF: Rama Judicial – SIDN/Diario Oficial
+
+================================================================================
+21. CONCEPTO SALA DE CONSULTA - FOTOMULTAS (RAD. 2433 DE 2020)
+================================================================================
+
+Tipo: Jurisprudencia/doctrina (Consejo de Estado)
+Número/Fecha: Radicado 2433 / 2020 (publicado en portal)
+Autoridad emisora: Consejo de Estado - Sala de Consulta y Servicio Civil
+
+RESUMEN:
+Analiza el marco jurídico de:
+- Participación de privados en operación de fotomultas
+- Destinación de multas
+- Condiciones de vinculación y notificación
+
+Se articula con Sentencia C-038 de 2020.
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Doctrina orientadora (no vinculante como sentencia, pero altamente persuasiva).
+Útil para RAG de funcionarios:
+- Contratos de operación de cámaras
+- APP (Asociaciones Público-Privadas)
+- Procedimientos de cobro
+
+Fuentes de consulta:
+- PDF: Consejo de Estado / Consulta Función Pública
+
+================================================================================
+22. CIRCULAR CONJUNTA 023 DE 2025 - PLAN 365
+================================================================================
+
+Tipo: Circular conjunta
+Número/Fecha: 023 / 2025
+Autoridad emisora: MinTransporte + ANSV + Supertransporte + DITRA
+
+RESUMEN:
+Lineamientos de:
+- Pedagogía vial
+- Presencia institucional
+- Control en seguridad vial durante 2025
+
+Conocido como "PLAN 365".
+Relevante para operativos y coordinación interinstitucional.
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Vigente para la vigencia señalada (2025).
+Útil para RAG operativo: qué exige y a quién.
+
+Fuentes de consulta:
+- PDF: Visor MinTransporte
+
+================================================================================
+23. CIRCULAR EXTERNA 20254000000867 - SAST Y CONTROL DE SEÑALIZACIÓN
+================================================================================
+
+Tipo: Circular (supervisión)
+Número/Fecha: 20254000000867 / 2025-12-31
+Autoridad emisora: Superintendencia de Transporte
+
+RESUMEN:
+Orienta sobre:
+- SAST (Sistemas Automáticos y Semiautomáticos de Tránsito)
+- Señalización vial
+- Control en vía
+
+Útil para:
+- Inspección, Vigilancia y Control (IVC)
+- Cumplimiento técnico de sistemas de fotodetección
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Vigente como lineamiento.
+Debe enlazarse a:
+- Ley 1843 de 2017
+- Resolución 20203040011245/2020 (criterios técnicos)
+
+Fuentes de consulta:
+- PDF: Superintendencia de Transporte
+
+================================================================================
+24. CAMBIOS RECIENTES EN LEYES QUE MODIFICAN LA LEY 769
+================================================================================
+
+LEY 2393 DE 2024 - CINTURÓN DE SEGURIDAD EN TRANSPORTE ESCOLAR
+Fecha: 2024-07-26
+Estado: VIGENTE
+
+Qué cambia (en términos ciudadanos):
+Modifica el Código para reglamentar uso de cinturón de seguridad de TRES PUNTOS
+en transporte escolar (transporte terrestre automotor especial para escolar).
+
+Fuentes:
+- PDF: Función Pública
+- PDF: DAPRE
+
+---
+
+LEY 2435 DE 2024 - AJUSTES SANCIONATORIOS (MOTOCICLISTAS)
+Fecha: 2024-11-12
+Estado: VIGENTE
+
+Qué cambia (en términos ciudadanos):
+Ajusta sanciones aplicables a algunas infracciones.
+Incluye modificaciones a literales del Art. 131 del Código.
+Énfasis en conductas de:
+- Motociclistas
+- Otros actores viales
+
+Fuentes:
+- PDF: DAPRE
+
+---
+
+LEY 2486 DE 2025 - VEHÍCULOS ELÉCTRICOS DE MOVILIDAD PERSONAL
+Fecha: 2025-07-16
+Estado: VIGENTE
+
+Qué cambia (en términos ciudadanos):
+- Regula circulación de vehículos eléctricos livianos de movilidad personal urbana
+  (patinetas eléctricas, monopatines, segways, etc.)
+- Promueve uso de estos vehículos
+- Adiciona reglas al régimen de tránsito
+- Ajusta remisiones normativas
+- Incluye referencias a incentivos de movilidad
+
+Fuentes:
+- Consulta/descarga: Función Pública
+- Listado: DAPRE
+
+================================================================================
+25. RESUMEN DE FUENTES OFICIALES PARA VERIFICACIÓN
+================================================================================
+
+PORTALES RECOMENDADOS:
+
+1. Función Pública: www.funcionpublica.gov.co
+   - Leyes y decretos consolidados
+   - Trazabilidad de modificaciones
+
+2. SUIN-Juriscol: www.suin-juriscol.gov.co
+   - Sistema Único de Información Normativa
+   - Control de vigencia
+
+3. Secretaría del Senado: www.secretariasenado.gov.co
+   - Leyes de la República
+   - Versiones históricas
+
+4. Ministerio de Transporte: www.mintransporte.gov.co
+   - Resoluciones
+   - Manuales técnicos
+   - RUNT
+
+5. DAPRE: www.presidencia.gov.co
+   - Decretos
+   - Planes nacionales
+
+6. Corte Constitucional: www.corteconstitucional.gov.co
+   - Sentencias
+   - Comunicados
+
+7. Consejo de Estado: www.consejodeestado.gov.co
+   - Jurisprudencia
+   - Conceptos Sala de Consulta
+
+8. Superintendencia de Transporte: www.supertransporte.gov.co
+   - Circulares de supervisión
+   - IVC (Inspección, Vigilancia y Control)
+
+9. ANSV (Agencia Nacional de Seguridad Vial): www.ansv.gov.co
+   - Políticas de seguridad vial
+   - Manuales y guías
+
+================================================================================
+ADVERTENCIA SOBRE VIGENCIA
+================================================================================
+
+Algunos portales publican con finalidad informativa y pueden NO garantizar vigencia.
+Se recomienda:
+- Doble verificación entre fuentes
+- Registrar "fecha de obtención" para trazabilidad
+- Verificar sentencias de la Corte Constitucional que puedan haber condicionado o 
+  expulsado normas del ordenamiento
+
+================================================================================
+FIN DEL INVENTARIO DE DOCUMENTOS
+================================================================================
 
 ================================================================================
 FUENTES DE CONSULTA OFICIAL

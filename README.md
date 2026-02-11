@@ -50,16 +50,25 @@ AI-powered Telegram bot for Colombian transit law assistance. Helps drivers unde
 
 #### 4. Resolutions (Technical/Administrative)
 - **Resolución 20223040045295/2022** - Resolución Única Compilatoria MinTransporte
-- **Resolución 20243040045005/2024** - Manual de Señalización Vial
+- **Resolución 20243040045005/2024** - Manual de Señalización Vial 2024 (Anexo 76)
+- **Resolución 20203040011245/2020** - Criterios técnicos SAST/fotodetección
+- **Resolución 20233040025995/2023** - Metodología de velocidad límite
+- **Resolución 20233040025895/2023** - Planes de gestión de velocidad
+- **Resolución 20223040040595/2022** - Metodología PESV
+- **Resolución 20203040023385/2020** - Condiciones de uso del casco
 
 #### 5. Jurisprudence (Interpretive/Conditioning)
 - **C-530 de 2003** - Debido proceso en comparendos
 - **C-980 de 2010** - Notificación válida
 - **C-038 de 2020** - Responsabilidad personal en fotomultas
-- **Consejo de Estado** - Doctrina sobre imputación personal
+- **Concepto Rad. 2433/2020** - Consejo de Estado sobre fotomultas/privados
 
-#### 6. Guides & Compilations
-- Compendio Normativo 2024-2025
+#### 6. Circulars (Operational Guidelines)
+- **Circular Conjunta 023/2025** - Plan 365 (pedagogía y control)
+- **Circular Externa 20254000000867** - SAST y control de señalización
+
+#### 7. Guides & Compilations
+- Compendio Normativo 2024-2025 (25+ documents referenced)
 - Inventario de Documentos Oficiales
 - Guías Señor Biter (defensa del conductor)
 
