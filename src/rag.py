@@ -194,6 +194,21 @@ SOURCE_METADATA = {
         "year": 2025,
         "official_source": "Compilación de URLs oficiales"
     },
+    "metadata_schema": {
+        "name": "Esquema de Metadatos para RAG Jurídico-Normativo",
+        "type": "referencia",
+        "priority": 3,
+        "year": 2025,
+        "official_source": "Especificación técnica TransitoColBot"
+    },
+    "sentencia_c321": {
+        "name": "Sentencia C-321 de 2022 (Procedimiento Contravencional)",
+        "type": "jurisprudencia",
+        "priority": 2,
+        "year": 2022,
+        "official_source": "Corte Constitucional",
+        "nota": "Límites a potestad sancionadora, arts. 135-142 Ley 769"
+    },
     "constitucion": {
         "name": "Constitución Política de Colombia 1991",
         "type": "constitucion",
@@ -692,6 +707,7 @@ def get_default_documents_config(base_path: str = ".") -> List[Dict]:
         ("docs/compendio_normativo.txt", "compendio_normativo"),
         ("docs/inventario_documentos.txt", "inventario_documentos"),
         ("docs/enlaces_oficiales.txt", "enlaces_oficiales"),
+        ("docs/metadata_schema.txt", "metadata_schema"),
         # Practical guides
         ("senorbiter_guias.txt", "senorbiter"),
     ]

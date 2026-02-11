@@ -16,22 +16,24 @@ class TestDerechoPeticionTrigger:
     @pytest.fixture
     def trigger_pattern(self):
         """The regex pattern used for derecho de petición trigger."""
-        return re.compile(r'(?i)(derecho.*peticion|crear.*(derecho.*peticion|documento)|peticion.*derecho)')
+        # Pattern handles both accented (ó) and non-accented (o) versions
+        return re.compile(r'(?i)(derecho.*petici[oó]n|crear.*(derecho.*petici[oó]n|documento)|petici[oó]n.*derecho)')
     
-    def test_matches_derecho_de_peticion(self, trigger_pattern):
-        """Test matching 'derecho de petición'."""
+    def test_matches_derecho_de_peticion_no_accent(self, trigger_pattern):
+        """Test matching 'derecho de peticion' without accents."""
         assert trigger_pattern.search("derecho de peticion")
         assert trigger_pattern.search("Derecho de Peticion")
         assert trigger_pattern.search("DERECHO DE PETICION")
     
-    def test_matches_without_accent(self, trigger_pattern):
-        """Test matching without accent marks (as typed by many users)."""
-        assert trigger_pattern.search("derecho de peticion")
+    def test_matches_with_accent(self, trigger_pattern):
+        """Test matching with accent marks."""
+        assert trigger_pattern.search("derecho de petición")
+        assert trigger_pattern.search("Derecho de Petición")
     
     def test_matches_crear_derecho(self, trigger_pattern):
         """Test matching 'crear derecho de petición'."""
         assert trigger_pattern.search("quiero crear un derecho de peticion")
-        assert trigger_pattern.search("crear derecho de peticion")
+        assert trigger_pattern.search("crear derecho de petición")
     
     def test_matches_crear_documento(self, trigger_pattern):
         """Test matching 'crear documento'."""
@@ -41,6 +43,7 @@ class TestDerechoPeticionTrigger:
     def test_matches_peticion_derecho(self, trigger_pattern):
         """Test matching reversed 'petición derecho'."""
         assert trigger_pattern.search("peticion de derecho")
+        assert trigger_pattern.search("petición de derecho")
     
     def test_no_match_unrelated(self, trigger_pattern):
         """Test no match for unrelated queries."""
@@ -51,7 +54,8 @@ class TestDerechoPeticionTrigger:
     def test_matches_question_format(self, trigger_pattern):
         """Test matching question formats."""
         assert trigger_pattern.search("Como hago un derecho de peticion")
-        assert trigger_pattern.search("como crear un derecho de peticion")
+        assert trigger_pattern.search("como crear un derecho de petición")
+        assert trigger_pattern.search("¿Cómo hago un derecho de petición?")
 
 
 class TestSystemPromptContent:

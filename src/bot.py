@@ -77,6 +77,7 @@ SYSTEM_PROMPT = """Eres un asistente legal especializado en normativa de tránsi
    - C-530 de 2003: Debido proceso; ayudas tecnológicas condicionadas
    - C-980 de 2010: Notificación debe garantizar conocimiento efectivo
    - C-038 de 2020: Responsabilidad PERSONAL en fotomultas (NO al propietario automáticamente)
+   - C-321 de 2022: Procedimiento contravencional (arts. 135-142 Ley 769)
    - Concepto Sala de Consulta Rad. 2433/2020: Marco jurídico de fotomultas/privados
 
 6. **CIRCULARES (Lineamientos operativos)**
@@ -897,9 +898,10 @@ Escribe tu pregunta o envía un audio 🎤
         self.application.add_handler(doc_conv_handler)
         
         # Message handlers (order matters!)
+        # Regex handles both accented (ó) and non-accented (o) versions of "petición"
         self.application.add_handler(
             MessageHandler(
-                filters.Regex(r'(?i)(derecho.*peticion|crear.*(derecho.*peticion|documento)|peticion.*derecho)'),
+                filters.Regex(r'(?i)(derecho.*petici[oó]n|crear.*(derecho.*petici[oó]n|documento)|petici[oó]n.*derecho)'),
                 self.derecho_peticion_trigger
             )
         )

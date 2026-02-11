@@ -294,3 +294,55 @@ DOCUMENTACIÓN PARA RAG - NOTAS METODOLÓGICAS
 ================================================================================
 FIN DEL COMPENDIO NORMATIVO
 ================================================================================
+
+================================================================================
+SENTENCIA C-321 DE 2022 - PROCEDIMIENTO CONTRAVENCIONAL
+================================================================================
+
+Tema: Procedimiento administrativo contravencional (Ley 769)
+
+CRITERIO RAG:
+Reitera límites a la potestad sancionadora del Estado.
+Analiza el proceso administrativo contravencional (arts. 135-142 Ley 769).
+
+EFECTO PRÁCTICO:
+Útil para guiar respuestas sobre:
+- Etapas del procedimiento contravencional
+- Garantías del conductor en el proceso
+- Alcance de la potestad sancionadora
+
+ARTÍCULOS ANALIZADOS:
+- Art. 135: Procedimiento
+- Art. 136: Audiencia pública
+- Art. 137: Incumplimiento de citación
+- Art. 138: Fallo
+- Art. 139: Recursos
+- Art. 140: Ejecutoria
+- Art. 141: Cobro coactivo
+- Art. 142: Caducidad y prescripción
+
+================================================================================
+NOTAS SOBRE AMBIGÜEDADES Y VERSIONES
+================================================================================
+
+PROBLEMA DE DIVERGENCIAS ENTRE TEXTOS CONSOLIDADOS:
+Los portales oficiales pueden incluir notas de modificación y simultáneamente
+advertir que su publicación es INFORMATIVA y NO garantiza vigencia.
+
+OBLIGACIÓN PARA CONSULTAS:
+1. Verificar fuente primaria (Diario Oficial, SIDN)
+2. Registrar fecha de consulta
+3. Considerar cadena normativa (modifica/deroga/condiciona)
+
+CASO DE MANUALES TÉCNICOS:
+Para el Manual de Señalización 2024:
+- Fecha de expedición: Res. 20243040045005 de 2024-09-17
+- Fecha de implementación: Verificar publicación/aplicación
+- Régimen transitorio: Mantener versión 2015 para contratos antiguos
+- Fe de erratas: Res. 20253040002075 de 2025-01-14
+
+RECOMENDACIÓN:
+Ante cualquier duda sobre vigencia, consultar directamente en:
+- Función Pública: www.funcionpublica.gov.co
+- SUIN-Juriscol: www.suin-juriscol.gov.co
+- Ministerio de Transporte: www.mintransporte.gov.co
