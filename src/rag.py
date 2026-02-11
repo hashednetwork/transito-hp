@@ -184,7 +184,15 @@ SOURCE_METADATA = {
         "type": "circular",
         "priority": 3,
         "year": 2025,
-        "official_source": "Superintendencia de Transporte"
+        "official_source": "Superintendencia de Transporte",
+        "url": "https://www.supertransporte.gov.co/documentos/2025/Diciembre/Juridica_31/Circular%20Externa%20No.%2020254000000867.pdf"
+    },
+    "enlaces_oficiales": {
+        "name": "Enlaces Directos a Documentos Oficiales",
+        "type": "referencia",
+        "priority": 3,
+        "year": 2025,
+        "official_source": "Compilación de URLs oficiales"
     },
     "constitucion": {
         "name": "Constitución Política de Colombia 1991",
@@ -683,6 +691,7 @@ def get_default_documents_config(base_path: str = ".") -> List[Dict]:
         # Compendiums and reference
         ("docs/compendio_normativo.txt", "compendio_normativo"),
         ("docs/inventario_documentos.txt", "inventario_documentos"),
+        ("docs/enlaces_oficiales.txt", "enlaces_oficiales"),
         # Practical guides
         ("senorbiter_guias.txt", "senorbiter"),
     ]

@@ -1,0 +1,231 @@
+ENLACES DIRECTOS A DOCUMENTOS OFICIALES
+========================================
+Base de conocimiento para RAG - TransitoColBot
+Enlaces PDF/visores oficiales verificados
+
+================================================================================
+NOTA DE INGESTA RAG
+================================================================================
+
+En un pipeline de ingesta:
+1. Resolver visor → archivo final (algunos enlaces son visores, no PDFs directos)
+2. Registrar hash del documento descargado
+3. Incluir metadatos: fecha_descarga, hash_md5, tamaño_bytes
+4. Versionar por fecha para trazabilidad de cambios
+
+================================================================================
+CONSTITUCIÓN Y CÓDIGOS
+================================================================================
+
+CONSTITUCIÓN POLÍTICA DE COLOMBIA 1991
+Fuente: DAPRE (Departamento Administrativo de la Presidencia)
+URL: https://dapre.presidencia.gov.co/normativa/normativa/Constitucion-Politica-Colombia-1991.pdf
+Formato: PDF
+Artículos relevantes: 23 (petición), 24 (circulación), 29 (debido proceso)
+
+---
+
+LEY 769 DE 2002 - CÓDIGO NACIONAL DE TRÁNSITO TERRESTRE
+Fuente: Cancillería - Normograma
+URL: https://www.cancilleria.gov.co/sites/default/files/Normograma/docs/ley_0769_2002.pdf
+Formato: PDF
+Nota: Verificar versión consolidada con modificaciones en Función Pública
+
+================================================================================
+RESOLUCIONES COMPILATORIAS Y TÉCNICAS
+================================================================================
+
+RESOLUCIÓN ÚNICA COMPILATORIA TRÁNSITO 20223040045295 DE 2022
+Fuente: RUNT
+URL: https://www.runt.gov.co/sites/default/files/normas/MinTransporte-Resolucion-2022-N0045295_20220804.pdf
+Formato: PDF
+Importancia: Contenedor crítico - integra múltiples resoluciones
+
+---
+
+RESOLUCIÓN 20243040045005 DE 2024 - ADOPTA MANUAL DE SEÑALIZACIÓN 2024
+Fuente: MinTransporte
+URL: https://mintransporte.gov.co/loader.php?id=74423&lFuncion=visorpdf&lServicio=Tools2&lTipo=descargas&pdf=1
+Formato: Visor PDF (resolver a archivo final)
+Nota: Adopta Anexo 76 (Manual de Señalización)
+
+---
+
+MANUAL DE SEÑALIZACIÓN VIAL 2024 (ANEXO 76)
+Fuente: MinTransporte
+URL: https://mintransporte.gov.co/loader.php?idFile=78759&lFuncion=descargar&lServicio=Tools2&lTipo=descargas
+Formato: PDF (descarga directa)
+Importancia: Referencia técnica obligatoria por adopción normativa
+
+---
+
+FE DE ERRATAS / CORRECCIÓN AL MANUAL 2024
+Fuente: MinTransporte
+URL: https://mintransporte.gov.co/loader.php?id=78819&lFuncion=descargar&lServicio=Tools2&lTipo=descargas
+Formato: PDF (descarga directa)
+Nota: Encadenar al documento base (relación CORRIGE_A)
+
+---
+
+RESOLUCIÓN 1885 DE 2015 - MANUAL DE SEÑALIZACIÓN 2015 (HISTÓRICO)
+Fuente: MinTransporte
+URL: https://mintransporte.gov.co/descargar.php?idFile=12301
+Formato: PDF (descarga directa)
+Nota: Reemplazado por Manual 2024. Mantener para consultas retroactivas.
+
+================================================================================
+RESOLUCIONES DE VELOCIDAD
+================================================================================
+
+RESOLUCIÓN 20233040025995 DE 2023 - METODOLOGÍA VELOCIDAD LÍMITE
+Fuente: MinTransporte
+URL: https://mintransporte.gov.co/loader.php?id=32618&lFuncion=visorpdf&lServicio=Tools2&lTipo=descargas&pdf=1
+Formato: Visor PDF
+Importancia: Clave para establecer velocidades en vías colombianas
+
+---
+
+RESOLUCIÓN 20233040025895 DE 2023 - PLANES DE GESTIÓN DE VELOCIDAD
+Fuente: MinTransporte
+URL: https://mintransporte.gov.co/loader.php?id=32617&lFuncion=visorpdf&lServicio=Tools2&lTipo=descargas&pdf=1
+Formato: Visor PDF
+Vinculación: PNSV (Decreto 1430/2022) y Ley 2251/2022
+
+================================================================================
+RESOLUCIONES DE EQUIPOS Y SEGURIDAD
+================================================================================
+
+RESOLUCIÓN 20203040023385 DE 2020 - CONDICIONES DE USO DEL CASCO
+Fuente: SIDN / Rama Judicial
+URL: https://sidn.ramajudicial.gov.co/SIDN/NORMATIVA/TEXTOS_COMPLETOS/8_RESOLUCIONES/RESOLUCIONES%202020/MT%20Resoluci%C3%B3n%20202030400023385%20de%202020%20%28%20Establecen%20las%20condiciones%20m%C3%ADnimas%20de%20uso%20del%20casco%20protector%20para%20los%20conductores%29.pdf
+Formato: PDF
+Referencia: Arts. 94 y 131 del Código de Tránsito
+
+---
+
+RESOLUCIÓN 20203040011245 DE 2020 - CRITERIOS TÉCNICOS SAST
+Fuente: MinTransporte
+URL: https://mintransporte.gov.co/loader.php?idFile=25360&lFuncion=descargar&lServicio=Tools2&lTipo=descargas
+Formato: PDF (descarga directa)
+Importancia: CLAVE para determinar legalidad de fotodetección
+Vinculación: Ley 1843/2017 y Decreto 2106/2019
+
+================================================================================
+RESOLUCIÓN PESV
+================================================================================
+
+RESOLUCIÓN 20223040040595 DE 2022 - METODOLOGÍA PESV
+Fuente: SIDN / Rama Judicial
+URL: https://sidn.ramajudicial.gov.co/SIDN/NORMATIVA/TEXTOS_COMPLETOS/8_RESOLUCIONES/RESOLUCIONES%202022/MT%20Resoluci%C3%B3n%2020223040040595%20de%202022%20%28Planes%20Estrat%C3%A9gicos%20de%20Seguridad%20Vial%29.pdf
+Formato: PDF
+Nota: Deroga Resolución 1565/2014
+
+================================================================================
+DECRETOS Y PLANES NACIONALES
+================================================================================
+
+DECRETO 1430 DE 2022 - PLAN NACIONAL DE SEGURIDAD VIAL 2022-2031
+Fuente: DAPRE
+URL: https://dapre.presidencia.gov.co/normativa/normativa/DECRETO%201430%20DEL%2029%20DE%20JULIO%20DE%202022.pdf
+Formato: PDF
+Enfoque: Sistema Seguro
+
+---
+
+ANEXO TÉCNICO PNSV 2022-2031
+Fuente: Función Pública
+URL: https://www.funcionpublica.gov.co/eva/gestornormativo/documentos/anexo-tecnico-decreto-1430-2022.pdf
+Formato: PDF
+Nota: Documento técnico complementario al Decreto 1430
+
+================================================================================
+JURISPRUDENCIA CONSTITUCIONAL
+================================================================================
+
+SENTENCIA C-038 DE 2020 - RESPONSABILIDAD SOLIDARIA EN FOTOMULTAS
+Fuente: Relatoría Corte Constitucional
+URL: https://www.corteconstitucional.gov.co/relatoria/2020/c-038-20.htm
+Formato: HTML (web)
+Importancia: Declara inexequible responsabilidad solidaria del propietario
+Precedente: Vinculante - responsabilidad personal en sanciones
+
+---
+
+SENTENCIA C-530 DE 2003 - DEBIDO PROCESO EN COMPARENDOS
+Fuente: Función Pública
+URL: https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=13917
+Formato: HTML (web)
+Importancia: Validez condicionada de ayudas tecnológicas como prueba
+
+================================================================================
+CIRCULARES
+================================================================================
+
+CIRCULAR CONJUNTA 023 DE 2025 - PLAN 365
+Fuente: MinTransporte (visor)
+URL: https://mintransporte.gov.co/loader.php?id=68399&lFuncion=visorpdf&lServicio=Tools2&lTipo=descargas&pdf=1
+Formato: Visor PDF
+Emisores: MinTransporte + ANSV + Supertransporte + DITRA
+Vigencia: 2025
+
+---
+
+CIRCULAR EXTERNA 20254000000867 - SAST Y CONTROL DE SEÑALIZACIÓN
+Fuente: Superintendencia de Transporte
+URL: https://www.supertransporte.gov.co/documentos/2025/Diciembre/Juridica_31/Circular%20Externa%20No.%2020254000000867.pdf
+Formato: PDF
+Tema: SAST, Señalización y Control en Vía
+
+================================================================================
+PORTALES DE VERIFICACIÓN
+================================================================================
+
+Para verificar vigencia y obtener versiones actualizadas:
+
+1. Función Pública (leyes/decretos consolidados):
+   https://www.funcionpublica.gov.co/eva/gestornormativo/
+
+2. SUIN-Juriscol (Sistema Único de Información Normativa):
+   https://www.suin-juriscol.gov.co/
+
+3. Secretaría del Senado (leyes):
+   https://www.secretariasenado.gov.co/
+
+4. Ministerio de Transporte (resoluciones/manuales):
+   https://www.mintransporte.gov.co/
+
+5. DAPRE (decretos):
+   https://dapre.presidencia.gov.co/normativa/
+
+6. Corte Constitucional (sentencias):
+   https://www.corteconstitucional.gov.co/relatoria/
+
+7. SIDN Rama Judicial (normativa):
+   https://sidn.ramajudicial.gov.co/
+
+8. Superintendencia de Transporte (circulares):
+   https://www.supertransporte.gov.co/
+
+================================================================================
+METADATOS RECOMENDADOS PARA INGESTA
+================================================================================
+
+Para cada documento descargado, registrar:
+
+{
+  "documento": "nombre_documento",
+  "url_origen": "https://...",
+  "fecha_descarga": "YYYY-MM-DD",
+  "hash_md5": "abc123...",
+  "tamaño_bytes": 12345,
+  "formato": "pdf|html",
+  "version": "YYYY-MM-DD",
+  "fuente_oficial": "DAPRE|MinTransporte|...",
+  "vigente": true|false,
+  "relacionado_con": ["doc1", "doc2"],
+  "reemplazado_por": null|"doc_nuevo"
+}
+
+================================================================================
+FIN DE ENLACES OFICIALES
+================================================================================

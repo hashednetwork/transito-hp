@@ -175,8 +175,9 @@ transitocol/
 ├── .env                    # API keys (not tracked)
 ├── chroma_db/              # Vector database (persistent)
 ├── docs/
-│   ├── compendio_normativo.txt
-│   └── inventario_documentos.txt
+│   ├── compendio_normativo.txt    # Legal compendium 2024-2025
+│   ├── inventario_documentos.txt   # Document inventory (25+ docs)
+│   └── enlaces_oficiales.txt       # Direct PDF download links
 ├── src/
 │   ├── __init__.py
 │   ├── rag.py              # Enhanced RAG pipeline
