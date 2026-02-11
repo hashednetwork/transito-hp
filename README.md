@@ -177,7 +177,10 @@ transitocol/
 ├── docs/
 │   ├── compendio_normativo.txt    # Legal compendium 2024-2025
 │   ├── inventario_documentos.txt   # Document inventory (25+ docs)
-│   └── enlaces_oficiales.txt       # Direct PDF download links
+│   ├── enlaces_oficiales.txt       # Direct PDF download links
+│   ├── metadata_schema.txt         # RAG metadata specification
+│   ├── ontologia_rag.txt           # ER model and ontology
+│   └── faq_golden_set.txt          # FAQ validation tests
 ├── src/
 │   ├── __init__.py
 │   ├── rag.py              # Enhanced RAG pipeline

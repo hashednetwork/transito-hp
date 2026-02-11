@@ -34,189 +34,274 @@ EMBEDDING_DIMENSIONS = 1536
 
 # Document source metadata - for citation and display
 # Priority: 1 = highest (laws, constitution), 2 = medium (decrees, jurisprudence), 3 = lower (guides)
+# url_descarga: official download/view URL for citations
 SOURCE_METADATA = {
     "codigo_transito": {
         "name": "Ley 769 de 2002 (Código Nacional de Tránsito Terrestre)",
+        "short_name": "Ley 769 de 2002",
         "type": "ley",
         "priority": 1,
         "year": 2002,
         "official_source": "Secretaría del Senado",
-        "url": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=5557"
+        "url": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=5557",
+        "url_descarga": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=5557"
     },
     "decreto_2106": {
         "name": "Decreto 2106 de 2019 (Simplificación de Trámites)",
+        "short_name": "Decreto 2106 de 2019",
         "type": "decreto",
         "priority": 2,
         "year": 2019,
         "official_source": "Función Pública",
-        "url": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=103352"
+        "url": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=103352",
+        "url_descarga": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=103352"
     },
     "decreto_1079": {
         "name": "Decreto 1079 de 2015 (Decreto Único Reglamentario Transporte)",
+        "short_name": "Decreto 1079 de 2015",
         "type": "decreto",
         "priority": 2,
         "year": 2015,
         "official_source": "Ministerio de Transporte",
-        "url": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=77889"
+        "url": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=77889",
+        "url_descarga": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=77889"
     },
     "ley_1843": {
         "name": "Ley 1843 de 2017 (Fotodetección de Infracciones)",
+        "short_name": "Ley 1843 de 2017",
         "type": "ley",
         "priority": 1,
         "year": 2017,
         "official_source": "Secretaría del Senado",
-        "url": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=82815"
+        "url": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=82815",
+        "url_descarga": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=82815"
     },
     "compendio_normativo": {
         "name": "Compendio Normativo de Tránsito 2024-2025",
+        "short_name": "Compendio Normativo 2024-2025",
         "type": "compendio",
         "priority": 1,
         "year": 2025,
-        "official_source": "Compilación actualizada"
+        "official_source": "Compilación actualizada",
+        "url_descarga": None
     },
     "inventario_documentos": {
         "name": "Inventario de Documentos Oficiales y Jerarquía Normativa",
+        "short_name": "Inventario de Documentos",
         "type": "referencia",
         "priority": 2,
         "year": 2025,
-        "official_source": "Guía de fuentes oficiales"
+        "official_source": "Guía de fuentes oficiales",
+        "url_descarga": None
     },
     "senorbiter": {
         "name": "Guías Prácticas Señor Biter",
+        "short_name": "Guía Señor Biter",
         "type": "guia",
         "priority": 3,
         "year": 2024,
-        "official_source": "senorbiter.com - Educador en derechos de conductores"
+        "official_source": "senorbiter.com - Educador en derechos de conductores",
+        "url_descarga": "https://senorbiter.com/"
     },
     "jurisprudencia": {
         "name": "Jurisprudencia Constitucional",
+        "short_name": "Jurisprudencia",
         "type": "jurisprudencia",
         "priority": 2,
         "year": 2020,
-        "official_source": "Corte Constitucional / Consejo de Estado"
+        "official_source": "Corte Constitucional / Consejo de Estado",
+        "url_descarga": "https://www.corteconstitucional.gov.co/relatoria/"
     },
     "resolucion_compilatoria": {
         "name": "Resolución 20223040045295 de 2022 (Resolución Única Compilatoria)",
+        "short_name": "Res. 20223040045295 de 2022",
         "type": "resolucion",
         "priority": 2,
         "year": 2022,
-        "official_source": "Ministerio de Transporte"
+        "official_source": "Ministerio de Transporte",
+        "url_descarga": "https://www.mintransporte.gov.co/publicaciones/10600/resoluciones-2022/"
     },
     "manual_senalizacion": {
         "name": "Manual de Señalización Vial de Colombia 2024 (Anexo 76)",
+        "short_name": "Manual Señalización 2024",
         "type": "manual",
         "priority": 2,
         "year": 2024,
         "official_source": "Ministerio de Transporte",
-        "nota": "Adoptado por Res. 20243040045005. Fe de erratas: Res. 20253040002075"
+        "nota": "Adoptado por Res. 20243040045005. Fe de erratas: Res. 20253040002075",
+        "url_descarga": "https://www.mintransporte.gov.co/publicaciones/manual-de-senalizacion-vial/"
     },
     "manual_senalizacion_2015": {
         "name": "Manual de Señalización Vial 2015 (histórico)",
+        "short_name": "Manual Señalización 2015",
         "type": "manual",
         "priority": 3,
         "year": 2015,
         "official_source": "Ministerio de Transporte",
-        "nota": "Reemplazado por Manual 2024. Mantener para consultas retroactivas."
+        "nota": "Reemplazado por Manual 2024. Mantener para consultas retroactivas.",
+        "url_descarga": None
     },
     "ley_2251": {
         "name": "Ley 2251 de 2022 (Ley Julián Esteban - Velocidad)",
+        "short_name": "Ley 2251 de 2022",
         "type": "ley",
         "priority": 1,
         "year": 2022,
         "official_source": "Función Pública",
-        "nota": "Modifica Arts. 106-107 Código de Tránsito (velocidad)"
+        "nota": "Modifica Arts. 106-107 Código de Tránsito (velocidad)",
+        "url_descarga": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=188536"
     },
     "pnsv_2022": {
         "name": "Decreto 1430 de 2022 (Plan Nacional de Seguridad Vial 2022-2031)",
+        "short_name": "Decreto 1430 de 2022",
         "type": "decreto",
         "priority": 2,
         "year": 2022,
         "official_source": "DAPRE / MinTransporte",
-        "nota": "Marco de política Sistema Seguro"
+        "nota": "Marco de política Sistema Seguro",
+        "url_descarga": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=189923"
     },
     "resolucion_velocidad": {
         "name": "Resolución 20233040025995 de 2023 (Metodología Velocidad)",
+        "short_name": "Res. 20233040025995 de 2023",
         "type": "resolucion",
         "priority": 2,
         "year": 2023,
-        "official_source": "MinTransporte / ANSV"
+        "official_source": "MinTransporte / ANSV",
+        "url_descarga": "https://www.mintransporte.gov.co/publicaciones/10602/resoluciones-2023/"
     },
     "resolucion_cascos": {
         "name": "Resolución 20203040023385 de 2020 (Condiciones Uso Casco)",
-        "type": "resolucion",
-        "priority": 2,
-        "year": 2020,
-        "official_source": "MinTransporte"
-    },
-    "resolucion_sast": {
-        "name": "Resolución 20203040011245 de 2020 (Criterios Técnicos SAST/Fotodetección)",
+        "short_name": "Res. 20203040023385 de 2020",
         "type": "resolucion",
         "priority": 2,
         "year": 2020,
         "official_source": "MinTransporte",
-        "nota": "Clave para legalidad de fotodetección. Se articula con Ley 1843 y Decreto 2106."
+        "url_descarga": "https://www.mintransporte.gov.co/publicaciones/10596/resoluciones-2020/"
+    },
+    "resolucion_sast": {
+        "name": "Resolución 20203040011245 de 2020 (Criterios Técnicos SAST/Fotodetección)",
+        "short_name": "Res. 20203040011245 de 2020",
+        "type": "resolucion",
+        "priority": 2,
+        "year": 2020,
+        "official_source": "MinTransporte",
+        "nota": "Clave para legalidad de fotodetección. Se articula con Ley 1843 y Decreto 2106.",
+        "url_descarga": "https://www.mintransporte.gov.co/publicaciones/10596/resoluciones-2020/"
     },
     "resolucion_pesv": {
         "name": "Resolución 20223040040595 de 2022 (Metodología PESV)",
+        "short_name": "Res. 20223040040595 de 2022",
         "type": "resolucion",
         "priority": 2,
         "year": 2022,
         "official_source": "MinTransporte",
-        "nota": "Deroga Res. 1565/2014. Obligatoria para organizaciones con PESV."
+        "nota": "Deroga Res. 1565/2014. Obligatoria para organizaciones con PESV.",
+        "url_descarga": "https://www.mintransporte.gov.co/publicaciones/10600/resoluciones-2022/"
     },
     "concepto_fotomultas": {
         "name": "Concepto Sala de Consulta Rad. 2433 de 2020 (Fotomultas)",
+        "short_name": "Concepto Rad. 2433/2020",
         "type": "jurisprudencia",
         "priority": 2,
         "year": 2020,
         "official_source": "Consejo de Estado",
-        "nota": "Doctrina orientadora sobre participación privada en fotomultas."
+        "nota": "Doctrina orientadora sobre participación privada en fotomultas.",
+        "url_descarga": "https://www.consejodeestado.gov.co/"
     },
     "circular_plan365": {
         "name": "Circular Conjunta 023 de 2025 (Plan 365)",
+        "short_name": "Circular 023 de 2025",
         "type": "circular",
         "priority": 3,
         "year": 2025,
-        "official_source": "MinTransporte + ANSV + Supertransporte + DITRA"
+        "official_source": "MinTransporte + ANSV + Supertransporte + DITRA",
+        "url_descarga": None
     },
     "circular_sast": {
         "name": "Circular Externa 20254000000867 (SAST y Control Señalización)",
+        "short_name": "Circular 20254000000867",
         "type": "circular",
         "priority": 3,
         "year": 2025,
         "official_source": "Superintendencia de Transporte",
-        "url": "https://www.supertransporte.gov.co/documentos/2025/Diciembre/Juridica_31/Circular%20Externa%20No.%2020254000000867.pdf"
+        "url": "https://www.supertransporte.gov.co/documentos/2025/Diciembre/Juridica_31/Circular%20Externa%20No.%2020254000000867.pdf",
+        "url_descarga": "https://www.supertransporte.gov.co/documentos/2025/Diciembre/Juridica_31/Circular%20Externa%20No.%2020254000000867.pdf"
     },
     "enlaces_oficiales": {
         "name": "Enlaces Directos a Documentos Oficiales",
+        "short_name": "Enlaces Oficiales",
         "type": "referencia",
         "priority": 3,
         "year": 2025,
-        "official_source": "Compilación de URLs oficiales"
+        "official_source": "Compilación de URLs oficiales",
+        "url_descarga": None
     },
     "metadata_schema": {
         "name": "Esquema de Metadatos para RAG Jurídico-Normativo",
+        "short_name": "Esquema de Metadatos",
         "type": "referencia",
         "priority": 3,
         "year": 2025,
-        "official_source": "Especificación técnica TransitoColBot"
+        "official_source": "Especificación técnica TransitoColBot",
+        "url_descarga": None
+    },
+    "ontologia_rag": {
+        "name": "Ontología y Modelo ER para RAG de Tránsito",
+        "short_name": "Ontología RAG",
+        "type": "referencia",
+        "priority": 3,
+        "year": 2025,
+        "official_source": "Especificación técnica TransitoColBot",
+        "url_descarga": None
+    },
+    "faq_golden_set": {
+        "name": "Banco de Preguntas Frecuentes (Golden Set)",
+        "short_name": "FAQ Golden Set",
+        "type": "referencia",
+        "priority": 3,
+        "year": 2025,
+        "official_source": "Pruebas de validación TransitoColBot",
+        "url_descarga": None
     },
     "sentencia_c321": {
         "name": "Sentencia C-321 de 2022 (Procedimiento Contravencional)",
+        "short_name": "Sentencia C-321/2022",
         "type": "jurisprudencia",
         "priority": 2,
         "year": 2022,
         "official_source": "Corte Constitucional",
-        "nota": "Límites a potestad sancionadora, arts. 135-142 Ley 769"
+        "nota": "Límites a potestad sancionadora, arts. 135-142 Ley 769",
+        "url_descarga": "https://www.corteconstitucional.gov.co/relatoria/2022/C-321-22.htm"
+    },
+    "sentencia_c038": {
+        "name": "Sentencia C-038 de 2020 (Fotodetección)",
+        "short_name": "Sentencia C-038/2020",
+        "type": "jurisprudencia",
+        "priority": 1,
+        "year": 2020,
+        "official_source": "Corte Constitucional",
+        "nota": "Clave: responsabilidad personal en fotomultas, no automática del propietario",
+        "url_descarga": "https://www.corteconstitucional.gov.co/relatoria/2020/C-038-20.htm"
     },
     "constitucion": {
         "name": "Constitución Política de Colombia 1991",
+        "short_name": "Constitución 1991",
         "type": "constitucion",
         "priority": 1,
         "year": 1991,
         "official_source": "DAPRE / Secretaría del Senado",
-        "url": "https://www.secretariasenado.gov.co/constitucion-politica"
+        "url": "https://www.secretariasenado.gov.co/constitucion-politica",
+        "url_descarga": "https://www.secretariasenado.gov.co/constitucion-politica"
     }
+}
+
+# Known sentencias with direct URLs
+SENTENCIAS_URLS = {
+    "C-038": "https://www.corteconstitucional.gov.co/relatoria/2020/C-038-20.htm",
+    "C-321": "https://www.corteconstitucional.gov.co/relatoria/2022/C-321-22.htm",
+    "C-530": "https://www.corteconstitucional.gov.co/relatoria/2003/C-530-03.htm",
+    "C-980": "https://www.corteconstitucional.gov.co/relatoria/2010/C-980-10.htm",
 }
 
 
@@ -318,6 +403,109 @@ def format_reference(metadata: Dict) -> str:
         parts.append(f"📂 {metadata['section']}")
     
     return " | ".join(parts) if parts else "Referencia general"
+
+
+def get_citation_url(metadata: Dict) -> Optional[str]:
+    """
+    Get the best URL for citation from metadata.
+    Prioritizes specific sentencia URLs, then source url_descarga.
+    """
+    # Check for sentencia-specific URL
+    if metadata.get("sentencia"):
+        # Extract sentencia code (e.g., "C-038" from "Sentencia C-038 de 2020")
+        sentencia_match = re.search(r'([CTSU]-\d+)', metadata["sentencia"])
+        if sentencia_match:
+            sentencia_code = sentencia_match.group(1)
+            if sentencia_code in SENTENCIAS_URLS:
+                return SENTENCIAS_URLS[sentencia_code]
+    
+    # Get source-level URL
+    source = metadata.get("source", "")
+    source_info = SOURCE_METADATA.get(source, {})
+    return source_info.get("url_descarga") or source_info.get("url")
+
+
+def format_citation_link(metadata: Dict) -> str:
+    """
+    Format a citation as a Markdown hyperlink if URL is available.
+    Returns: "[Norma](url)" or just "Norma" if no URL.
+    """
+    source = metadata.get("source", "")
+    source_info = SOURCE_METADATA.get(source, {})
+    
+    # Build citation text
+    citation_parts = []
+    
+    # Article reference (most specific)
+    if metadata.get("article"):
+        citation_parts.append(metadata["article"])
+        
+    # Sentencia reference
+    if metadata.get("sentencia"):
+        citation_parts.append(metadata["sentencia"])
+    
+    # Source short name or name
+    short_name = source_info.get("short_name") or source_info.get("name", source)
+    if short_name and not any(short_name in p for p in citation_parts):
+        citation_parts.append(short_name)
+    
+    # Build the citation text
+    if citation_parts:
+        citation_text = ", ".join(citation_parts)
+    else:
+        citation_text = "Referencia"
+    
+    # Get URL and create link
+    url = get_citation_url(metadata)
+    if url:
+        return f"[{citation_text}]({url})"
+    return citation_text
+
+
+def format_context_for_citations(results: List[Tuple[str, float, Dict]]) -> str:
+    """
+    Format RAG results into context that includes citation information for LLM.
+    This provides the LLM with source URLs to create hyperlinked citations.
+    """
+    context_parts = []
+    seen_content = set()
+    
+    for i, (doc, relevance, metadata) in enumerate(results, 1):
+        # Simple dedup by first 100 chars
+        content_key = doc[:100]
+        if content_key in seen_content:
+            continue
+        seen_content.add(content_key)
+        
+        # Get source info
+        source = metadata.get("source", "")
+        source_info = SOURCE_METADATA.get(source, {})
+        source_name = source_info.get("short_name") or source_info.get("name", source)
+        url = get_citation_url(metadata)
+        
+        # Build citation info for LLM
+        citation_info = []
+        citation_info.append(f"Fuente: {source_name}")
+        if url:
+            citation_info.append(f"URL: {url}")
+        if metadata.get("article"):
+            citation_info.append(f"Artículo: {metadata['article']}")
+        if metadata.get("sentencia"):
+            citation_info.append(f"Sentencia: {metadata['sentencia']}")
+        if metadata.get("ley"):
+            citation_info.append(f"Ley: {metadata['ley']}")
+        if metadata.get("decreto"):
+            citation_info.append(f"Decreto: {metadata['decreto']}")
+        
+        relevance_pct = int(relevance * 100)
+        citation_header = " | ".join(citation_info)
+        
+        context_parts.append(
+            f"--- Fragmento {i} (Relevancia: {relevance_pct}%) ---\n"
+            f"{citation_header}\n\n{doc}"
+        )
+    
+    return "\n\n".join(context_parts)
 
 
 def compute_chunk_hash(text: str) -> str:
@@ -635,16 +823,31 @@ class RAGPipeline:
         self, 
         query: str, 
         n_results: int = 5,
-        include_references: bool = True
+        include_references: bool = True,
+        include_citation_urls: bool = True
     ) -> str:
         """
-        Get formatted context string for LLM with references.
+        Get formatted context string for LLM with references and citation URLs.
+        
+        Args:
+            query: Search query
+            n_results: Maximum results to return
+            include_references: Include formatted references
+            include_citation_urls: Include URLs for LLM to create hyperlinks
+            
+        Returns:
+            Formatted context string with source information and URLs
         """
         results = self.retrieve(query, n_results)
         
         if not results:
             return "No se encontraron artículos o normas relevantes en la base de datos."
         
+        # Use the new citation-aware formatter if URLs are needed
+        if include_citation_urls:
+            return format_context_for_citations(results)
+        
+        # Legacy format without URLs
         context_parts = []
         seen_content = set()  # Deduplicate similar chunks
         
@@ -708,6 +911,8 @@ def get_default_documents_config(base_path: str = ".") -> List[Dict]:
         ("docs/inventario_documentos.txt", "inventario_documentos"),
         ("docs/enlaces_oficiales.txt", "enlaces_oficiales"),
         ("docs/metadata_schema.txt", "metadata_schema"),
+        ("docs/ontologia_rag.txt", "ontologia_rag"),
+        ("docs/faq_golden_set.txt", "faq_golden_set"),
         # Practical guides
         ("senorbiter_guias.txt", "senorbiter"),
     ]

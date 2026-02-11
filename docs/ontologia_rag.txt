@@ -1,0 +1,477 @@
+ONTOLOGÍA Y MODELO ER PARA RAG DE TRÁNSITO COLOMBIANO
+======================================================
+TransitoColBot - Especificación completa del modelo de datos
+Versión: 1.0 | Fecha: 2025-02
+
+================================================================================
+OBJETIVO DEL MODELO
+================================================================================
+
+Permitir preguntas del tipo:
+- "¿Qué norma aplica?"
+- "¿Está vigente?"
+- "¿Qué cambió?"
+- "¿Qué artículo regula X?"
+- "¿Qué dijo la Corte sobre Y?"
+- "¿Qué manual/NTC aplica a una señal?"
+
+================================================================================
+ENUMERACIONES (ENUMS)
+================================================================================
+
+ESTADO_VIGENCIA:
+- vigente
+- derogada
+- parcialmente_derogada
+- sustituida
+- condicionada_por_jurisprudencia
+- vigente_con_modificaciones
+
+TIPO_RELACION:
+- MODIFICA
+- DEROGA
+- ADICIONA
+- REGLAMENTA
+- COMPILA
+- ADOPTA_ANEXO
+- CORRIGE_A
+- DESARROLLA
+- CONDICIONA
+- DECLARA_INEXEQUIBLE
+- INTERPRETA
+
+SOURCE_PRINCIPAL:
+- dapre
+- funcion_publica
+- mintransporte
+- supertransporte
+- corte_constitucional
+- consejo_estado
+- senado_basedoc
+- suin
+- sidn
+
+FORMATO_ARCHIVO:
+- pdf
+- html
+- docx
+- xlsx
+- otro
+
+================================================================================
+MODELO ENTIDAD-RELACIÓN (ER)
+================================================================================
+
+DOCUMENTO
+---------
+Representa una norma, ley, decreto, resolución, sentencia o manual.
+
+Campos:
+- doc_id: string (UUID, PK)
+- tipo_norma: enum (constitucion|ley|decreto|resolucion|circular|manual|sentencia|concepto)
+- numero: string (ej: "769", "20223040045295")
+- fecha_expedicion: date (ISO-8601)
+- fecha_publicacion: date (ISO-8601, nullable)
+- estado_vigencia: enum
+- alcance_territorial: enum (nacional|departamental|distrital|municipal|mixto)
+- url_pagina: string (URL)
+- url_descarga: string (URL, nullable)
+- idioma: string (default: "es")
+
+---
+
+VERSION_DOCUMENTO
+-----------------
+Control de versiones y cambios en archivos descargados.
+
+Campos:
+- version_id: string (UUID, PK)
+- doc_id: string (FK → DOCUMENTO)
+- obtenido_en: datetime (ISO-8601)
+- hash_sha256: string (hex, 64 chars)
+- etag: string (nullable, HTTP ETag)
+- last_modified: datetime (nullable)
+- tamano_bytes: integer
+- ocr_aplicado: boolean (default: false)
+- ocr_confidence: float (nullable, 0.0-1.0)
+
+---
+
+SEGMENTO
+--------
+División estructural del documento (títulos, capítulos, artículos, anexos).
+
+Campos:
+- segmento_id: string (UUID, PK)
+- doc_id: string (FK → DOCUMENTO)
+- tipo_segmento: string (titulo|capitulo|articulo|paragrafo|literal|anexo)
+- identificador: string (ej: "Art. 135", "Anexo 76", "Título IV")
+- pagina_inicio: integer (nullable)
+- pagina_fin: integer (nullable)
+- contenido_texto: text
+
+---
+
+CHUNK
+-----
+Fragmento de texto para embedding y retrieval.
+
+Campos:
+- chunk_id: string (UUID, PK)
+- segmento_id: string (FK → SEGMENTO)
+- texto: text
+- token_count: integer
+- chunk_offsets: json (páginas, líneas, posiciones)
+- embedding_model: string (ej: "text-embedding-3-small")
+- embedding_version: string
+- pipeline_version: string
+- fecha_indexacion: datetime
+
+---
+
+AUTORIDAD
+---------
+Entidad emisora de documentos.
+
+Campos:
+- autoridad_id: string (PK)
+- nombre: string (ej: "Congreso de la República")
+- nivel: string (nacional|territorial)
+- url_portal: string (nullable)
+
+---
+
+RELACION_NORMATIVA
+------------------
+Relaciones entre documentos (modifica, deroga, etc.).
+
+Campos:
+- relacion_id: string (UUID, PK)
+- doc_id_origen: string (FK → DOCUMENTO)
+- doc_id_destino: string (FK → DOCUMENTO)
+- tipo_relacion: enum TIPO_RELACION
+- detalle: string (nullable, ej: "art. 131 literal D.7")
+- fecha_evento: date (nullable)
+
+---
+
+DECISION_JUDICIAL
+-----------------
+Sentencias y conceptos de altas cortes.
+
+Campos:
+- decision_id: string (UUID, PK)
+- corporacion: string (corte_constitucional|consejo_estado|corte_suprema)
+- tipo: string (sentencia_constitucionalidad|sentencia_tutela|concepto|auto)
+- numero: string (ej: "C-038", "2433")
+- fecha: date
+- url: string
+- magistrado_ponente: string (nullable)
+- norma_demandada: string (nullable)
+
+---
+
+RELACION_JURIS
+--------------
+Efectos de decisiones judiciales sobre documentos/segmentos.
+
+Campos:
+- reljur_id: string (UUID, PK)
+- decision_id: string (FK → DECISION_JUDICIAL)
+- doc_id: string (FK → DOCUMENTO)
+- segmento_id: string (FK → SEGMENTO, nullable)
+- efecto: string (INEXEQUIBLE|EXEQUIBLE_CONDICIONADA|INTERPRETA)
+- extracto_ratio: text (ratio decidendi resumido)
+
+---
+
+TEMA
+----
+Clasificación temática controlada.
+
+Campos:
+- tema_id: string (PK)
+- nombre: string
+
+Valores permitidos:
+- comparendos
+- fotodeteccion
+- velocidad
+- senalizacion
+- motos
+- soat
+- pesv
+- runt
+- licencias
+- revision_tecnicomecanica
+- embriaguez
+- vehiculos_electricos
+- transporte_escolar
+- debido_proceso
+- notificacion
+- prescripcion
+- multas
+- cascos
+
+---
+
+DOCUMENTO_TEMA
+--------------
+Relación muchos-a-muchos entre documentos y temas.
+
+Campos:
+- doc_id: string (FK → DOCUMENTO, PK)
+- tema_id: string (FK → TEMA, PK)
+- confianza: float (0.0-1.0)
+
+---
+
+NORMA_TECNICA
+-------------
+Normas técnicas (NTC/ICONTEC).
+
+Campos:
+- ntc_id: string (UUID, PK)
+- codigo: string (ej: "NTC 4739")
+- titulo: string
+- estado: string (vigente|actualizada|anulada)
+- url_repositorio: string
+- licencia: string (ej: "copyright reservado")
+
+NOTA: El texto de NTC/ICONTEC está sujeto a derechos.
+Para RAG: almacenar metadatos y resumen propio, NO texto íntegro sin licencia.
+
+---
+
+REMISION_TECNICA
+----------------
+Referencias de documentos a normas técnicas.
+
+Campos:
+- rem_id: string (UUID, PK)
+- doc_id: string (FK → DOCUMENTO)
+- ntc_id: string (FK → NORMA_TECNICA)
+- contexto: string (ej: "especificaciones señal", "demarcación")
+
+---
+
+ENTIDAD_OPERATIVA
+-----------------
+Conceptos operativos regulados (infracciones, procedimientos, etc.).
+
+Campos:
+- entidad_id: string (UUID, PK)
+- tipo: string (infraccion|sancion|procedimiento|señal|velocidad|soat)
+- codigo: string (ej: "C02", "D07")
+- descripcion: text
+
+---
+
+PREGUNTA_FAQ
+------------
+Banco de preguntas frecuentes (golden set).
+
+Campos:
+- faq_id: string (UUID, PK)
+- pregunta: text
+- respuesta_modelo: text
+- temas: array[string]
+- dificultad: string (basica|intermedia|avanzada)
+
+================================================================================
+DIAGRAMA ER (MERMAID)
+================================================================================
+
+```mermaid
+erDiagram
+    DOCUMENTO ||--o{ VERSION_DOCUMENTO : tiene
+    DOCUMENTO ||--o{ SEGMENTO : se_descompone_en
+    SEGMENTO ||--o{ CHUNK : se_fragmenta_en
+    AUTORIDAD ||--o{ DOCUMENTO : emite
+    DOCUMENTO ||--o{ RELACION_NORMATIVA : origen
+    DOCUMENTO ||--o{ RELACION_NORMATIVA : destino
+    DECISION_JUDICIAL ||--o{ RELACION_JURIS : interpreta_o_condiciona
+    DOCUMENTO ||--o{ RELACION_JURIS : afectado_por
+    TEMA ||--o{ DOCUMENTO_TEMA : clasifica
+    DOCUMENTO ||--o{ DOCUMENTO_TEMA : tiene
+    NORMA_TECNICA ||--o{ REMISION_TECNICA : es_referida_por
+    DOCUMENTO ||--o{ REMISION_TECNICA : remite_a
+    SEGMENTO ||--o{ ENTIDAD_OPERATIVA : regula
+    ENTIDAD_OPERATIVA ||--o{ PREGUNTA_FAQ : responde
+```
+
+================================================================================
+CAMPOS ORIGEN Y ARCHIVO (DETALLE)
+================================================================================
+
+Para cada documento descargado:
+
+source_principal: enum SOURCE_PRINCIPAL
+    Portal de origen del documento
+
+url_pagina: string (URL)
+    URL de la página donde se encuentra el documento
+
+url_descarga: string (URL, nullable)
+    URL directa de descarga (si existe)
+
+formato: enum FORMATO_ARCHIVO
+    Formato del archivo descargado
+
+idioma: string
+    Código ISO del idioma (default: "es")
+
+licencia: string
+    Tipo de licencia (ej: "documento público", "copyright reservado")
+
+fecha_obtencion: datetime (ISO-8601)
+    Fecha y hora de descarga (zona horaria normalizada)
+
+hash_sha256: string (hex, 64 chars)
+    Hash SHA256 del archivo descargado
+
+tamano_bytes: integer
+    Tamaño del archivo en bytes
+
+etag: string (nullable)
+    HTTP ETag para detección de cambios
+
+last_modified: datetime (nullable)
+    HTTP Last-Modified header
+
+ocr_aplicado: boolean
+    Si se aplicó OCR al PDF escaneado
+
+ocr_confidence: float (nullable)
+    Confianza del OCR (0.0-1.0)
+
+================================================================================
+CAMPOS PROCESAMIENTO RAG
+================================================================================
+
+Para cada chunk procesado:
+
+segmento_id: string
+    Referencia al segmento (artículo/anexo) padre
+
+chunk_id: string (UUID)
+    Identificador único del chunk
+
+chunk_text: text
+    Texto del fragmento
+
+chunk_offsets: json
+    {
+        "pagina_inicio": 15,
+        "pagina_fin": 15,
+        "linea_inicio": 120,
+        "linea_fin": 145,
+        "char_inicio": 5420,
+        "char_fin": 6180
+    }
+
+embedding_model: string
+    Modelo usado (ej: "text-embedding-3-small")
+
+embedding_version: string
+    Versión del modelo de embedding
+
+pipeline_version: string
+    Versión del pipeline de procesamiento
+
+================================================================================
+PLAN DE ACTUALIZACIÓN Y VERIFICACIÓN
+================================================================================
+
+FUENTES PRIMARIAS A MONITOREAR (Prioridad Alta):
+
+1. DAPRE - Normativa
+   - PDFs oficiales: Constitución, leyes, decretos
+   - Texto oficial publicado
+   - Frecuencia: DIARIA
+
+2. Función Pública - Gestor Normativo
+   - Texto consolidado
+   - Metadatos y referencias de modificaciones
+   - Frecuencia: DIARIA
+
+3. MinTransporte - Repositorio/Loader
+   - Resoluciones, manuales, anexos técnicos
+   - Visores y descargas directas
+   - Frecuencia: DIARIA
+
+4. Rama Judicial - SIDN
+   - Copias PDF publicadas
+   - Diario Oficial y actos
+   - Frecuencia: SEMANAL
+
+5. Corte Constitucional - Relatoría
+   - Sentencias de constitucionalidad y tutela
+   - HTML oficial
+   - Frecuencia: SEMANAL
+
+6. Consejo de Estado
+   - Conceptos y doctrina
+   - Jurisprudencia administrativa
+   - Frecuencia: SEMANAL
+
+7. Supertransporte
+   - Circulares externas
+   - ABC y lineamientos IVC
+   - Frecuencia: DIARIA
+
+8. ICONTEC (NTC)
+   - Catálogo y actualizaciones
+   - REQUIERE control de licencia
+   - Frecuencia: MENSUAL
+
+---
+
+FRECUENCIA RECOMENDADA:
+
+DIARIA (automatizada):
+- DAPRE (nuevas leyes/decretos)
+- MinTransporte (resoluciones y anexos)
+- Supertransporte (circulares)
+Justificación: Alta probabilidad de cambios operativos.
+
+SEMANAL:
+- Corte Constitucional (nuevas decisiones)
+- Consejo de Estado (conceptos relevantes)
+
+MENSUAL:
+- ICONTEC/NTC (actualizaciones)
+- Auditoría de coherencia (links rotos, PDFs reemplazados)
+
+---
+
+MÉTODOS TÉCNICOS Y CONTROL DE CAMBIOS:
+
+1. Detección de cambios por archivo:
+   - Registrar sha256, etag, last_modified
+   - Si cambia hash sin cambiar número/fecha → crear VERSION_DOCUMENTO nueva
+   - Reasignar embeddings
+
+2. Resolución de visores:
+   - MinTransporte usa loader.php?...visorpdf...
+   - Scraper debe resolver URL final
+   - Conservar URL del visor como evidencia
+
+3. Normalización de numeración:
+   - Almacenar numero como string
+   - Clave única: tipo_norma + numero + fecha_expedicion
+
+4. Manejo de jurisprudencia:
+   - Cuando sentencia declare inexequible/condicione:
+     * Crear RELACION_JURIS
+     * Etiquetar segmentos afectados
+   - Ejemplo: C-038/2020 impacta respuestas sobre solidaridad
+
+5. Verificación cruzada:
+   - Comparar al menos 2 fuentes para normas troncales
+   - Si difiere → registrar "conflicto de versión"
+   - Preferir fuente primaria (DAPRE/Diario Oficial/SIDN)
+
+================================================================================
+FIN DE ONTOLOGÍA Y MODELO ER
+================================================================================
