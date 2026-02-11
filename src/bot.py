@@ -42,27 +42,37 @@ SYSTEM_PROMPT = """Eres un asistente legal especializado en normativa de tránsi
 
 ## FUENTES NORMATIVAS QUE CONOCES:
 
-### Jerarquía Legal (de mayor a menor):
-1. **Constitución Política** - Art. 24 (libertad de circulación), Art. 23 (derecho de petición), Art. 29 (debido proceso)
-2. **Leyes principales:**
-   - Ley 769 de 2002: Código Nacional de Tránsito Terrestre
+### Jerarquía Normativa (de mayor a menor fuerza vinculante):
+
+1. **CONSTITUCIÓN POLÍTICA (Fuerza máxima)**
+   - Art. 24: Derecho a circular libremente con limitaciones legales
+   - Art. 23: Derecho de petición (respuesta en 15 días hábiles)
+   - Art. 29: Debido proceso (presunción de inocencia, defensa, pruebas)
+
+2. **LEYES Y CÓDIGOS (Fuerza alta)**
+   - Ley 769 de 2002: Código Nacional de Tránsito Terrestre (eje normativo principal)
    - Ley 1383 de 2010: Reforma al Código de Tránsito
    - Ley 1696 de 2013: Sanciones por embriaguez
-   - Ley 1843 de 2017: Fotodetección de infracciones
+   - Ley 1843 de 2017: Sistemas de fotodetección (señalización 500m, notificación 3 días)
    - Ley 2393 de 2024: Cinturón de seguridad en transporte escolar
    - Ley 2435 de 2024: Ajustes sancionatorios
    - Ley 2486 de 2025: Vehículos eléctricos de movilidad personal
 
-3. **Decretos clave:**
-   - Decreto 1079 de 2015: Decreto Único Reglamentario del sector transporte
-   - Decreto 2106 de 2019: Simplificación de trámites (documentos digitales)
+3. **DECRETOS (Reglamentarios/compilatorios)**
+   - Decreto 1079 de 2015: Decreto Único Reglamentario del sector transporte (hub de reglamentaciones)
+   - Decreto 2106 de 2019: Simplificación de trámites (documentos digitales, Art. 111)
 
-4. **Jurisprudencia fundamental:**
-   - C-530 de 2003: Debido proceso en comparendos
-   - C-980 de 2010: Notificación válida por correo
-   - C-038 de 2020: Responsabilidad personal en fotomultas (NO al propietario automáticamente)
+4. **RESOLUCIONES (Técnicas/administrativas)**
+   - Resolución 20223040045295 de 2022: Resolución Única Compilatoria del MinTransporte
+   - Resolución 20243040045005 de 2024: Manual de Señalización Vial 2024
 
-5. **Guías prácticas:** Señor Biter (defensa de derechos del conductor)
+5. **JURISPRUDENCIA CONSTITUCIONAL (Interpretativa/condicionante)**
+   - C-530 de 2003: Debido proceso; ayudas tecnológicas condicionadas
+   - C-980 de 2010: Notificación debe garantizar conocimiento efectivo
+   - C-038 de 2020: Responsabilidad PERSONAL en fotomultas (NO al propietario automáticamente)
+   - Doctrina Consejo de Estado: Imputación personal en fotodetección
+
+6. **GUÍAS PRÁCTICAS:** Señor Biter (defensa de derechos del conductor)
 
 ## TU ROL:
 - Responder ÚNICAMENTE basándote en el contexto proporcionado y tu conocimiento de las normas
@@ -309,41 +319,53 @@ Escribe tu pregunta o envía un audio 🎤
         await update.message.reply_text(help_message, parse_mode=ParseMode.MARKDOWN)
     
     async def fuentes_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-        """Handle /fuentes command - show indexed sources."""
+        """Handle /fuentes command - show indexed sources and normative hierarchy."""
         stats = self.rag.get_stats()
         
         fuentes_text = """📚 *Fuentes Normativas Indexadas*
 
-*Leyes:*
-• Ley 769 de 2002 - Código de Tránsito
-• Ley 1843 de 2017 - Fotodetección
-• Ley 2393 de 2024 - Cinturón escolar
-• Ley 2435 de 2024 - Ajustes sancionatorios
-• Ley 2486 de 2025 - Vehículos eléctricos
+*JERARQUÍA NORMATIVA:*
 
-*Decretos:*
-• Decreto 1079 de 2015 - DUR Transporte
-• Decreto 2106 de 2019 - Simplificación trámites
+🏛️ *1. Constitución (Fuerza máxima):*
+• Art. 24 - Libertad de circulación
+• Art. 23 - Derecho de petición
+• Art. 29 - Debido proceso
 
-*Jurisprudencia:*
+⚖️ *2. Leyes (Fuerza alta):*
+• Ley 769/2002 - Código de Tránsito
+• Ley 1843/2017 - Fotodetección
+• Ley 2393/2024 - Cinturón escolar
+• Ley 2435/2024 - Ajustes sancionatorios
+• Ley 2486/2025 - Vehículos eléctricos
+
+📋 *3. Decretos (Reglamentarios):*
+• Decreto 1079/2015 - DUR Transporte
+• Decreto 2106/2019 - Simplificación trámites
+
+📄 *4. Resoluciones:*
+• Res. 20223040045295/2022 - Compilatoria
+• Manual Señalización 2024
+
+⚖️ *5. Jurisprudencia:*
 • C-530/2003 - Debido proceso
 • C-980/2010 - Notificación
-• C-038/2020 - Responsabilidad fotomultas
+• C-038/2020 - Responsabilidad personal
 
-*Guías:*
+📖 *6. Guías:*
 • Compendio Normativo 2024-2025
+• Inventario de Documentos
 • Guías Señor Biter
 
-📊 *Estadísticas:*
+📊 *Estadísticas del RAG:*
 """
         
         total = stats.get('total_chunks', 0)
-        fuentes_text += f"Total fragmentos indexados: {total}\n"
+        fuentes_text += f"Total fragmentos: {total}\n"
         
         by_source = stats.get('by_source', {})
         for source, count in by_source.items():
             if count > 0:
-                fuentes_text += f"• {source}: {count} fragmentos\n"
+                fuentes_text += f"• {source}: {count}\n"
         
         await update.message.reply_text(fuentes_text, parse_mode=ParseMode.MARKDOWN)
     

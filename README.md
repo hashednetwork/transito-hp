@@ -30,8 +30,13 @@ AI-powered Telegram bot for Colombian transit law assistance. Helps drivers unde
 
 ## Knowledge Base
 
-### Laws & Codes
-- **Ley 769 de 2002** - Código Nacional de Tránsito Terrestre
+### Normative Hierarchy (Highest to Lowest)
+
+#### 1. Constitution (Maximum Force)
+- **Constitución Política 1991** - Art. 24 (circulation), Art. 23 (petition), Art. 29 (due process)
+
+#### 2. Laws & Codes (High Force)
+- **Ley 769 de 2002** - Código Nacional de Tránsito Terrestre (main axis)
 - **Ley 1383 de 2010** - Reforma al Código de Tránsito
 - **Ley 1696 de 2013** - Sanciones por embriaguez
 - **Ley 1843 de 2017** - Fotodetección de infracciones
@@ -39,17 +44,23 @@ AI-powered Telegram bot for Colombian transit law assistance. Helps drivers unde
 - **Ley 2435 de 2024** - Ajustes sancionatorios
 - **Ley 2486 de 2025** - Vehículos eléctricos de movilidad personal
 
-### Decrees
+#### 3. Decrees (Regulatory)
 - **Decreto 1079 de 2015** - Decreto Único Reglamentario del sector transporte
 - **Decreto 2106 de 2019** - Simplificación de trámites (documentos digitales)
 
-### Jurisprudence
+#### 4. Resolutions (Technical/Administrative)
+- **Resolución 20223040045295/2022** - Resolución Única Compilatoria MinTransporte
+- **Resolución 20243040045005/2024** - Manual de Señalización Vial
+
+#### 5. Jurisprudence (Interpretive/Conditioning)
 - **C-530 de 2003** - Debido proceso en comparendos
 - **C-980 de 2010** - Notificación válida
 - **C-038 de 2020** - Responsabilidad personal en fotomultas
+- **Consejo de Estado** - Doctrina sobre imputación personal
 
-### Guides
+#### 6. Guides & Compilations
 - Compendio Normativo 2024-2025
+- Inventario de Documentos Oficiales
 - Guías Señor Biter (defensa del conductor)
 
 ## Tech Stack
@@ -155,7 +166,8 @@ transitocol/
 ├── .env                    # API keys (not tracked)
 ├── chroma_db/              # Vector database (persistent)
 ├── docs/
-│   └── compendio_normativo.txt
+│   ├── compendio_normativo.txt
+│   └── inventario_documentos.txt
 ├── src/
 │   ├── __init__.py
 │   ├── rag.py              # Enhanced RAG pipeline

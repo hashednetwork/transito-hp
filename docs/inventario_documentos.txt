@@ -1,0 +1,367 @@
+INVENTARIO PRIORIZADO DE DOCUMENTOS OFICIALES
+==============================================
+Base de conocimiento para RAG - TransitoColBot
+Guía de fuentes y jerarquía normativa
+
+================================================================================
+TABLA COMPARATIVA POR TIPO NORMATIVO
+================================================================================
+
+TIPO                    | FUERZA NORMATIVA         | USO RAG TÍPICO                                    | RECOMENDACIÓN DE INGESTIÓN
+------------------------|--------------------------|---------------------------------------------------|--------------------------------------------------
+Constitución            | Máxima                   | Derechos, límites al poder sancionatorio          | Ingerir versión oficial + artículos citados (art. 24)
+Ley/Código              | Alta                     | Reglas de circulación, infracciones, procedimientos | Ingerir texto consolidado + PDF oficial + mapa de modificaciones
+Decreto/Decreto-ley     | Reglamenta/compila       | Detalle sectorial, requisitos y procedimientos    | Ingerir decreto único (actualizado) y decretos específicos
+Resolución (MinTransporte) | Técnica/administrativa | Manuales, metodologías (velocidad, PESV), SAST, cascos | Priorizar resolución compilatoria + resoluciones de metodología
+Circular                | Instrucción/lineamiento  | Operación de control, campañas, criterios interpretativos | Ingerir circulares conjuntas y de supervisión (Supertransporte)
+Manual adoptado         | Técnica vinculante       | Señalización, gestión de tránsito, PMT            | Ingerir PDF vigente + anexos + versión anterior (transición)
+Norma técnica NTC       | Técnica (licenciada)     | Materiales, especificaciones de señales/demarcación | Ingerir metadatos + vínculo; texto solo con licencia
+Jurisprudencia          | Interpretativa/condicionante | Debido proceso, fotodetección, notificaciones, sanciones | Ingerir sentencias "hito" + extractos doctrinales oficiales
+
+================================================================================
+DOCUMENTOS TRONCALES PARA EL CORPUS RAG
+================================================================================
+
+Lista priorizada para maximizar cobertura de dudas ciudadanas y operativas:
+- Procedimientos
+- Comparendos
+- Infracciones
+- Señalización
+- Velocidades
+- Cascos
+- Fotodetección
+- PESV (Planes Estratégicos de Seguridad Vial)
+- SOAT
+- Nuevos modos de transporte
+
+================================================================================
+1. CONSTITUCIÓN POLÍTICA DE 1991
+================================================================================
+
+Tipo: Constitución
+Número/Fecha: 1991-07-20 (promulgación)
+Autoridad emisora: Asamblea Nacional Constituyente / Estado
+
+RESUMEN:
+Incluye el artículo 24: derecho a circular libremente con límites legales.
+Sustento constitucional de regulación y control del tránsito.
+Artículo 23: derecho de petición.
+Artículo 29: debido proceso.
+
+Alcance territorial: Nacional
+Vigencia: Vigente; usar versión oficial consolidada para citas.
+
+Fuentes de consulta:
+- PDF oficial: DAPRE (Departamento Administrativo de la Presidencia)
+- HTML: Secretaría del Senado
+
+ARTÍCULOS RELEVANTES PARA TRÁNSITO:
+
+Artículo 24 - LIBERTAD DE CIRCULACIÓN:
+"Todo colombiano, con las limitaciones que establezca la ley, tiene derecho a circular libremente por el territorio nacional, a entrar y salir de él, y a permanecer y residenciarse en Colombia."
+
+Artículo 23 - DERECHO DE PETICIÓN:
+"Toda persona tiene derecho a presentar peticiones respetuosas a las autoridades por motivos de interés general o particular y a obtener pronta resolución."
+
+Artículo 29 - DEBIDO PROCESO:
+"El debido proceso se aplicará a toda clase de actuaciones judiciales y administrativas."
+Incluye: presunción de inocencia, derecho de defensa, nulidad de pruebas ilícitas.
+
+================================================================================
+2. LEY 769 DE 2002 - CÓDIGO NACIONAL DE TRÁNSITO TERRESTRE
+================================================================================
+
+Tipo: Ley / Código
+Número/Fecha: 769 / 2002-08-06
+Autoridad emisora: Congreso de la República
+
+RESUMEN:
+Eje central de la normativa de tránsito en Colombia.
+Define:
+- Principios rectores
+- Autoridades de tránsito
+- Reglas de circulación
+- Infracciones y clasificación
+- Sanciones (multas, suspensión, cancelación de licencia)
+- Procedimiento contravencional
+
+Declara aplicación en todo el territorio nacional.
+
+Alcance territorial: Nacional
+Vigencia: Vigente con múltiples modificaciones y reglamentaciones.
+
+NOTA OPERATIVA:
+Requiere versionado por fecha y trazabilidad de cambios.
+Principales leyes modificatorias:
+- Ley 1383 de 2010
+- Ley 1548 de 2012
+- Ley 1696 de 2013
+- Ley 1811 de 2016
+- Ley 1843 de 2017
+- Ley 2251 de 2022
+- Ley 2393 de 2024
+- Ley 2435 de 2024
+
+Fuentes de consulta:
+- Texto consolidado: Función Pública (www.funcionpublica.gov.co)
+- PDF: Cancillería – Normograma
+
+================================================================================
+3. DECRETO 1079 DE 2015 - DECRETO ÚNICO REGLAMENTARIO SECTOR TRANSPORTE
+================================================================================
+
+Tipo: Decreto compilatorio
+Número/Fecha: 1079 / 2015-05-26 (y actualizaciones)
+Autoridad emisora: Presidencia / Ministerio de Transporte
+
+RESUMEN:
+Compila normas reglamentarias del sector transporte.
+Sirve como "hub" de reglamentaciones relevantes para:
+- Tránsito
+- Seguridad vial
+- Obligaciones sectoriales
+- Licencias de conducción
+- Revisión técnico-mecánica
+- Transporte público y especial
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Portal indica "última fecha de actualización".
+Debe monitorearse y reingerirse por versiones.
+
+Fuentes de consulta:
+- Consulta: Función Pública (suin-juriscol.gov.co)
+
+TEMAS CLAVE REGULADOS:
+- Parte 2, Libro 2, Título 1: Tránsito
+- Parte 2, Libro 2, Título 2: Transporte
+- Parte 2, Libro 3: Infraestructura
+- Parte 2, Libro 4: Seguridad Vial
+
+================================================================================
+4. RESOLUCIÓN 20223040045295 DE 2022 - RESOLUCIÓN ÚNICA COMPILATORIA
+================================================================================
+
+Tipo: Resolución compilatoria
+Número/Fecha: 20223040045295 / 2022-08-04
+Autoridad emisora: Ministerio de Transporte
+
+RESUMEN:
+Compila normativa de tránsito expedida por el Ministerio.
+Es un "contenedor" crítico para RAG porque integra múltiples resoluciones en un solo cuerpo.
+
+Temas compilados:
+- Licencias de conducción
+- Centros de enseñanza automovilística
+- Revisión técnico-mecánica
+- SOAT
+- Registro Nacional Automotor
+- Infracciones y procedimientos
+- Señalización vial
+- Sistemas de fotodetección
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Vigente y modificable por resoluciones posteriores.
+Mantener cadena de modificaciones y anexos.
+
+Fuentes de consulta:
+- PDF: Ministerio de Transporte / RUNT
+- Visor: MinTransporte
+
+================================================================================
+5. DECRETO 2106 DE 2019 - SIMPLIFICACIÓN DE TRÁMITES
+================================================================================
+
+Tipo: Decreto
+Número/Fecha: 2106 / 2019-11-22
+Autoridad emisora: Presidencia de la República
+
+RESUMEN:
+Simplifica, suprime y reforma trámites.
+Artículos clave para tránsito (108-115):
+- NO exigencia de documentos físicos si consultables digitalmente (RUNT)
+- Requisitos de sistemas de fotodetección
+- Procedimientos de licencias
+- Multas y comparendos
+
+Alcance territorial: Nacional
+
+ARTÍCULOS RELEVANTES:
+
+Artículo 109 - SISTEMAS DE FOTODETECCIÓN:
+Los equipos deben estar autorizados por la Agencia Nacional de Seguridad Vial.
+Deben cumplir especificaciones técnicas homologadas.
+
+Artículo 111 - NO EXIGENCIA DE DOCUMENTOS FÍSICOS:
+Las autoridades de tránsito no pueden exigir la presentación física de documentos
+que puedan ser consultados en línea a través de las bases de datos del Estado.
+Aplica a: licencia de conducción, SOAT, revisión técnico-mecánica.
+
+================================================================================
+6. LEY 1843 DE 2017 - SISTEMAS DE FOTODETECCIÓN
+================================================================================
+
+Tipo: Ley
+Número/Fecha: 1843 / 2017-07-14
+Autoridad emisora: Congreso de la República
+
+RESUMEN:
+Regula los sistemas automáticos, semiautomáticos y otros medios tecnológicos
+para la detección de presuntas infracciones de tránsito.
+
+REQUISITOS CLAVE:
+
+Artículo 2 - CRITERIOS TÉCNICOS:
+Los sistemas deben cumplir criterios técnicos de seguridad vial.
+Requieren autorización de autoridad competente.
+
+Artículo 5 - SEÑALIZACIÓN OBLIGATORIA:
+Debe existir señalización preventiva e informativa.
+Ubicación: al menos 500 METROS antes del punto de detección.
+La ausencia de señalización invalida la multa.
+
+Artículo 8 - NOTIFICACIÓN:
+Plazo máximo: 3 DÍAS HÁBILES siguientes a la fecha de la presunta infracción.
+La notificación tardía vulnera el debido proceso.
+
+================================================================================
+7. MANUAL DE SEÑALIZACIÓN VIAL 2024
+================================================================================
+
+Tipo: Manual adoptado (técnica vinculante por remisión)
+Número/Fecha: Resolución 20243040045005 / 2024
+Autoridad emisora: Ministerio de Transporte
+
+RESUMEN:
+Establece los parámetros técnicos de señalización vial en Colombia.
+Contenido:
+- Señales verticales (reglamentarias, preventivas, informativas)
+- Señales horizontales (demarcación vial)
+- Señales transitorias (obras y trabajos)
+- Dispositivos para cicloinfraestructura
+- Señalización de sistemas de fotodetección
+- Nuevas señales para movilidad sostenible
+
+Alcance territorial: Nacional
+
+NOTA OPERATIVA:
+Adopta Manual de Señalización Vial 2024.
+Incluye material de descarga con anexos técnicos.
+Reemplaza versiones anteriores.
+
+================================================================================
+8. JURISPRUDENCIA CONSTITUCIONAL FUNDAMENTAL
+================================================================================
+
+Tipo: Jurisprudencia (interpretativa/condicionante)
+Autoridad emisora: Corte Constitucional / Consejo de Estado
+
+USO RAG:
+Ingerir sentencias "hito" + extractos doctrinales oficiales.
+Aplican a: debido proceso, fotodetección, notificaciones, sanciones.
+
+SENTENCIAS HITO:
+
+SENTENCIA C-530 DE 2003:
+Tema: Debido proceso vs comparendo; validez condicionada de ayudas tecnológicas como prueba.
+Regla: El comparendo no es prueba plena. El ciudadano puede controvertir.
+Las ayudas tecnológicas son válidas CONDICIONADAS al respeto del debido proceso.
+
+SENTENCIA C-980 DE 2010:
+Tema: Notificación por correo.
+Regla: La notificación debe garantizar conocimiento efectivo.
+No basta el envío; debe acreditarse la recepción.
+
+SENTENCIA C-038 DE 2020:
+Tema: Inconstitucionalidad de responsabilidad solidaria en fotodetección.
+Regla: NO se puede trasladar automáticamente la responsabilidad al propietario del vehículo.
+La responsabilidad en tránsito es PERSONAL.
+Debe identificarse al conductor infractor.
+
+DOCTRINA CONSEJO DE ESTADO (Sala de Consulta):
+Tema: Fotomultas/tecnología y exigencia de imputación personal.
+Regla: Los sistemas tecnológicos deben cumplir requisitos técnicos.
+La autorización de la cámara es requisito de validez.
+
+================================================================================
+9. LEYES RECIENTES (2024-2025)
+================================================================================
+
+LEY 2393 DE 2024 - CINTURÓN DE SEGURIDAD EN TRANSPORTE ESCOLAR:
+- Obligatoriedad del cinturón de seguridad de tres puntos
+- Aplica a vehículos de transporte de estudiantes
+- Plazo de implementación para vehículos existentes
+
+LEY 2435 DE 2024 - AJUSTES SANCIONATORIOS:
+- Modificaciones a multas y sanciones del Código de Tránsito
+- Actualización de valores por categoría de infracción
+- Nuevos procedimientos sancionatorios
+
+LEY 2486 DE 2025 - VEHÍCULOS ELÉCTRICOS DE MOVILIDAD PERSONAL:
+- Regulación de patinetas eléctricas, monopatines y similares
+- Requisitos de circulación en vías públicas
+- Límites de velocidad específicos
+- Obligaciones de seguridad (casco, luces)
+- Infraestructura permitida (ciclorrutas, andenes según el caso)
+
+================================================================================
+10. OTRAS RESOLUCIONES RELEVANTES
+================================================================================
+
+RESOLUCIONES DE METODOLOGÍA:
+- Metodología de velocidad
+- PESV (Planes Estratégicos de Seguridad Vial)
+- SAST (Sistema de Alertas sobre Seguridad en el Tránsito)
+- Especificaciones de cascos
+
+CIRCULARES CONJUNTAS:
+- Supertransporte: circulares de supervisión
+- Operación de control y campañas
+- Criterios interpretativos
+
+NORMAS TÉCNICAS NTC:
+- Especificaciones de materiales
+- Requisitos de señales y demarcación
+- Nota: Requieren licencia para acceso al texto completo
+
+================================================================================
+FUENTES DE CONSULTA OFICIAL
+================================================================================
+
+PORTALES RECOMENDADOS PARA VERIFICACIÓN:
+
+1. Función Pública: www.funcionpublica.gov.co
+   - Leyes y decretos consolidados
+   - Trazabilidad de modificaciones
+
+2. SUIN-Juriscol: www.suin-juriscol.gov.co
+   - Sistema Único de Información Normativa
+   - Jurisprudencia relacionada
+
+3. Secretaría del Senado: www.secretariasenado.gov.co
+   - Leyes de la República
+   - Versiones históricas
+
+4. Ministerio de Transporte: www.mintransporte.gov.co
+   - Resoluciones
+   - Manuales técnicos
+   - RUNT
+
+5. Corte Constitucional: www.corteconstitucional.gov.co
+   - Sentencias
+   - Comunicados de prensa
+
+6. Consejo de Estado: www.consejodeestado.gov.co
+   - Jurisprudencia contencioso-administrativa
+
+ADVERTENCIA:
+Algunos portales publican con finalidad informativa y pueden no garantizar vigencia.
+Se recomienda doble verificación entre fuentes.
+Registrar "fecha de obtención" para trazabilidad.
+
+================================================================================
+FIN DEL INVENTARIO DE DOCUMENTOS
+================================================================================

@@ -33,34 +33,39 @@ EMBEDDING_MODEL = "text-embedding-3-small"
 EMBEDDING_DIMENSIONS = 1536
 
 # Document source metadata - for citation and display
+# Priority: 1 = highest (laws, constitution), 2 = medium (decrees, jurisprudence), 3 = lower (guides)
 SOURCE_METADATA = {
     "codigo_transito": {
         "name": "Ley 769 de 2002 (Código Nacional de Tránsito Terrestre)",
         "type": "ley",
-        "priority": 1,  # Higher priority in retrieval
+        "priority": 1,
         "year": 2002,
-        "official_source": "Secretaría del Senado"
+        "official_source": "Secretaría del Senado",
+        "url": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=5557"
     },
     "decreto_2106": {
         "name": "Decreto 2106 de 2019 (Simplificación de Trámites)",
         "type": "decreto",
         "priority": 2,
         "year": 2019,
-        "official_source": "Función Pública"
+        "official_source": "Función Pública",
+        "url": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=103352"
     },
     "decreto_1079": {
         "name": "Decreto 1079 de 2015 (Decreto Único Reglamentario Transporte)",
         "type": "decreto",
         "priority": 2,
         "year": 2015,
-        "official_source": "Ministerio de Transporte"
+        "official_source": "Ministerio de Transporte",
+        "url": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=77889"
     },
     "ley_1843": {
         "name": "Ley 1843 de 2017 (Fotodetección de Infracciones)",
         "type": "ley",
         "priority": 1,
         "year": 2017,
-        "official_source": "Secretaría del Senado"
+        "official_source": "Secretaría del Senado",
+        "url": "https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=82815"
     },
     "compendio_normativo": {
         "name": "Compendio Normativo de Tránsito 2024-2025",
@@ -68,6 +73,13 @@ SOURCE_METADATA = {
         "priority": 1,
         "year": 2025,
         "official_source": "Compilación actualizada"
+    },
+    "inventario_documentos": {
+        "name": "Inventario de Documentos Oficiales y Jerarquía Normativa",
+        "type": "referencia",
+        "priority": 2,
+        "year": 2025,
+        "official_source": "Guía de fuentes oficiales"
     },
     "senorbiter": {
         "name": "Guías Prácticas Señor Biter",
@@ -83,12 +95,27 @@ SOURCE_METADATA = {
         "year": 2020,
         "official_source": "Corte Constitucional / Consejo de Estado"
     },
+    "resolucion_compilatoria": {
+        "name": "Resolución 20223040045295 de 2022 (Resolución Única Compilatoria)",
+        "type": "resolucion",
+        "priority": 2,
+        "year": 2022,
+        "official_source": "Ministerio de Transporte"
+    },
     "manual_senalizacion": {
         "name": "Manual de Señalización Vial de Colombia 2024",
         "type": "manual",
         "priority": 2,
         "year": 2024,
         "official_source": "Ministerio de Transporte"
+    },
+    "constitucion": {
+        "name": "Constitución Política de Colombia 1991",
+        "type": "constitucion",
+        "priority": 1,
+        "year": 1991,
+        "official_source": "DAPRE / Secretaría del Senado",
+        "url": "https://www.secretariasenado.gov.co/constitucion-politica"
     }
 }
 
@@ -571,18 +598,25 @@ def get_default_documents_config(base_path: str = ".") -> List[Dict]:
     
     configs = []
     
-    # Main legal documents
+    # Main legal documents - ordered by priority
     doc_mappings = [
+        # Primary sources (laws and codes)
         ("codigo_transito.txt", "codigo_transito"),
         ("decreto_2106_2019.txt", "decreto_2106"),
-        ("senorbiter_guias.txt", "senorbiter"),
+        # Compendiums and reference
         ("docs/compendio_normativo.txt", "compendio_normativo"),
+        ("docs/inventario_documentos.txt", "inventario_documentos"),
+        # Practical guides
+        ("senorbiter_guias.txt", "senorbiter"),
     ]
     
     for filename, source_id in doc_mappings:
         path = base / filename
         if path.exists():
             configs.append({"path": str(path), "source_id": source_id})
+            logger.debug(f"Found document: {filename} -> {source_id}")
+        else:
+            logger.debug(f"Document not found (optional): {filename}")
     
     return configs
 
